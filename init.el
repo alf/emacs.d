@@ -21,7 +21,8 @@
 (load custom-file)
 
 (add-to-list 'load-path (expand-file-name "scripts" emacs-dir))
-
 (if (eq system-type 'darwin) (load "init-mac.el"))
+
 (load "init-elpa.el")
+(load "init-packages.el")
 
