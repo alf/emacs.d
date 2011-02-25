@@ -1,3 +1,9 @@
+;;; Make sure emacs can find git, etc.
+(push "/usr/local/bin" exec-path)
+
+;;; Be pretty from the start.
+(load-theme 'tango)
+
 (setq emacs-dir (file-name-directory
                     (or load-file-name (buffer-file-name))))
 
@@ -19,5 +25,3 @@
 (if (eq system-type 'darwin) (load "init-mac.el"))
 (load "init-elpa.el")
 
-(push "/usr/local/bin" exec-path)
-(load-theme 'tango)
