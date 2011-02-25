@@ -12,3 +12,6 @@
   (if (eq system-type 'darwin)
       (load
        (expand-file-name "init-mac.el"))))
+
+(push "/usr/local/bin" exec-path)
+(load-theme 'tango)
