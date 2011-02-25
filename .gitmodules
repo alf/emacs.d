@@ -1,0 +1,3 @@
+[submodule "plugins/el-git"]
+	path = plugins/el-git
+	url = http://github.com/dimitri/el-get.git
