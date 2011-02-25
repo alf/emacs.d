@@ -25,4 +25,5 @@
 
 (load "init-elpa.el")
 (load "init-packages.el")
+(load "init-org.el")
 
