@@ -1,17 +1,24 @@
 (setq dotfiles-dir (file-name-directory
                     (or load-file-name (buffer-file-name))))
 
+;;; Setup a few important paths
 (let ((default-directory dotfiles-dir))
+  (setq plugins-dir
+	(expand-file-name "plugins"))
+
   (setq package-user-dir
 	(expand-file-name "elpa"))
+
   (setq custom-file
-	(expand-file-name "custom.el"))
+	(expand-file-name "custom.el")))
 
-  (load custom-file)
+(load custom-file)
 
-  (if (eq system-type 'darwin)
-      (load
-       (expand-file-name "init-mac.el"))))
+(add-to-list 'load-path (expand-file-name "scripts" dotfiles-dir))
+(add-to-list 'load-path (expand-file-name "el-get" plugins-dir))
+
+(if (eq system-type 'darwin) (load "init-mac.el"))
+(load "init-elpa.el")
 
 (push "/usr/local/bin" exec-path)
 (load-theme 'tango)
