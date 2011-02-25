@@ -6,21 +6,13 @@
 
 (setq emacs-dir (file-name-directory
                     (or load-file-name (buffer-file-name))))
+(setq dropbox-dir (expand-file-name "../.." emacs-dir))
 
-;;; Setup a few important paths
-(let ((default-directory emacs-dir))
-  (setq plugins-dir
-	(expand-file-name "plugins"))
-
-  (setq package-user-dir
-	(expand-file-name "elpa"))
-
-  (setq custom-file
-	(expand-file-name "custom.el")))
-
+(setq custom-file (expand-file-name "custom.el" emacs-dir))
 (load custom-file)
 
 (add-to-list 'load-path (expand-file-name "scripts" emacs-dir))
+
 (if (eq system-type 'darwin) (load "init-mac.el"))
 
 (load "init-elpa.el")
