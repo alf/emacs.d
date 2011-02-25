@@ -8,7 +8,7 @@
 	       :url "http://www.emacswiki.org/emacs/download/diff-mode-.el")
 	(:name vimpulse
 	       :type git
-	       :url "http://gitorious.org/vimpulse/vimpulse.git"
+	       :url "http://git.gitorious.org/vimpulse/vimpulse.git"
 	       :info "vimpulse for emacs"
 	       :features vimpulse)
 	(:name nxhtml
