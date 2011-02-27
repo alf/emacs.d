@@ -1,5 +1,7 @@
 ;;; Make sure emacs can find git, etc.
 (push "/usr/local/bin" exec-path)
+(push "/Users/alf.lervag/local/bin" exec-path)
+(setenv "PATH" (concat (getenv "PATH") ":/Users/alf.lervag/local/bin"))
 
 ;;; Be pretty from the start.
 (load-theme 'tango)
@@ -17,5 +19,5 @@
 
 (load "init-elpa.el")
 (load "init-packages.el")
+(load "init-builtins.el")
 (load "init-org.el")
-

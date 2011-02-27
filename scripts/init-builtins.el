@@ -1,0 +1,12 @@
+(ido-mode t)
+(setq ido-enable-flex-matching t)
+(server-mode t)
+(winner-mode t)
+(hl-needed-mode t)
+(setq hl-needed-on-config-change nil)
+
+(define-key global-map "\M-/" 'hippie-expand)
+(define-key read-expression-map [(tab)] 'hippie-expand)
+(define-key read-expression-map [(shift tab)] 'unexpand)
+(define-key global-map [(f9)] 'recompile)
+(define-key global-map [(f10)] 'build-widgets)
