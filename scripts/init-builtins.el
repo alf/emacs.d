@@ -2,6 +2,7 @@
 (setq ido-enable-flex-matching t)
 (server-mode t)
 (winner-mode t)
+(require 'dired-x)
 (hl-needed-mode t)
 (setq hl-needed-on-config-change nil)
 
@@ -9,4 +10,4 @@
 (define-key read-expression-map [(tab)] 'hippie-expand)
 (define-key read-expression-map [(shift tab)] 'unexpand)
 (define-key global-map [(f9)] 'recompile)
-(define-key global-map [(f10)] 'build-widgets)
+(define-key global-map "\C-x\C-b" 'ibuffer)

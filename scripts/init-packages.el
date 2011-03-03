@@ -13,17 +13,19 @@
 			(require 'autopair)
 			(autopair-global-mode t)))
 	(:name diff-mode- 
-	       :type http
-	       :url "http://www.emacswiki.org/emacs/download/diff-mode-.el")
+	       :type emacswiki
+	       :features diff-mode-)
 	(:name edit-server
-	       :type git
-	       :url "https://github.com/stsquad/emacs_chrome/tree/master/servers"
-	       )
-	(:name vimpulse
-	       :type git
-	       :url "http://git.gitorious.org/vimpulse/vimpulse.git"
-	       :info "vimpulse for emacs"
-	       :features vimpulse)
+	       :type http
+	       :url "https://github.com/stsquad/emacs_chrome/raw/master/servers/edit-server.el"
+	       :after (lambda ()
+			(require 'edit-server)
+			(edit-server-start)))
+	;; (:name vimpulse
+	;;        :type git
+	;;        :url "http://git.gitorious.org/vimpulse/vimpulse.git"
+	;;        :info "vimpulse for emacs"
+	;;        :features vimpulse)
 	(:name nxhtml
 	       :type git
 	       :url "http://github.com/emacsmirror/nxhtml.git"

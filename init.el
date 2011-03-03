@@ -4,11 +4,12 @@
 (setenv "PATH" (concat (getenv "PATH") ":/Users/alf.lervag/local/bin"))
 
 ;;; Be pretty from the start.
-(load-theme 'tango)
+(load-theme 'tango-dark)
 
 (setq emacs-dir (file-name-directory
-                    (or load-file-name (buffer-file-name))))
-(setq dropbox-dir (expand-file-name "../.." emacs-dir))
+		 (or load-file-name (buffer-file-name))))
+(setq dropbox-dir (file-name-as-directory
+		   (expand-file-name "../.." emacs-dir)))
 
 (setq custom-file (expand-file-name "custom.el" emacs-dir))
 (load custom-file)
@@ -21,3 +22,6 @@
 (load "init-packages.el")
 (load "init-builtins.el")
 (load "init-org.el")
+
+(load "custom-functions.el")
+(load "custom-variables.el")
