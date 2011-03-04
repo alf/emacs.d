@@ -12,7 +12,6 @@
 		   (expand-file-name "../.." emacs-dir)))
 
 (setq custom-file (expand-file-name "custom.el" emacs-dir))
-(load custom-file)
 
 (add-to-list 'load-path (expand-file-name "scripts" emacs-dir))
 
@@ -23,5 +22,7 @@
 (load "init-builtins.el")
 (load "init-org.el")
 
+;; Do this after loading other stuff so we know we get my configuration.
+(load custom-file)
 (load "custom-functions.el")
 (load "custom-variables.el")
