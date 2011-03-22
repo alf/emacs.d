@@ -10,35 +10,80 @@
 (setq org-directory (file-name-as-directory
 		     (expand-file-name "Org" dropbox-dir)))
 
-(setq org-log-into-drawer "LOGBOOK")
-(setq org-agenda-files
-      (list (concat org-directory "todo.org")
-            (concat org-directory "blog-ideas.org")
-            (concat org-directory "note.org")
-            (concat org-directory "journal.org")))
+(let ((default-directory org-directory))
+  (setq org-agenda-files
+	(mapcar 'expand-file-name
+		(list "todo.org"
+		      "blog-ideas.org"
+		      "note.org"
+		      "journal.org")))
 
-(setq org-capture-templates
-      `(("b" "Blog idea" entry
-         (file+headline ,(concat org-directory "blog-ideas.org") "Blog ideas")
-         "** %?\n%u\n")
-        ("t" "Todo" entry
-         (file+headline ,(concat org-directory "todo.org") "Tasks")
-         "* TODO %?\n %i\n")
-        ("n" "Note" entry
-         (file ,(concat org-directory "note.org"))
-         "* %?\n %i\n")
-        ("j" "Journal" entry
-         (file+datetree ,(concat org-directory "journal.org"))
-             "* %?\nEntered on %U\n  %i")))
+  (setq org-capture-templates
+	`(("b" "Blog idea" entry
+	   (file+headline ,(expand-file-name "blog-ideas.org") "Blog ideas")
+	   "** %?\n%u\n")
+	  ("t" "Todo" entry
+	   (file+headline ,(expand-file-name "todo.org") "Tasks")
+	   "* TODO %?\n %i\n")
+	  ("n" "Note" entry
+	   (file ,(expand-file-name "note.org"))
+	   "* %?\n %i\n")
+	  ("j" "Journal" entry
+	   (file+datetree ,(expand-file-name "journal.org"))
+	   "* %?\nEntered on %U\n  %i"))))
 
 (setq org-timer-default-timer 25)
-
-(add-hook 'org-clock-in-hook
-	  '(lambda()
-	     (if (not
-		  org-timer-current-timer)
-		 (org-timer-set-timer '(16)))))
 
 (add-hook 'org-mode-hook
 	  '(lambda()
 	     (setq fill-column 78)))
+
+
+;; From http://doc.norang.ca/org-mode.html#Clocking
+;; Resume clocking tasks when emacs is restarted
+(org-clock-persistence-insinuate)
+;; Yes it's long... but more is better ;)
+(setq org-clock-history-length 28)
+;; Resume clocking task on clock-in if the clock is open
+(setq org-clock-in-resume t)
+;; Change task state to NEXT when clocking in
+(setq org-clock-in-switch-to-state (quote bh/clock-in-to-started))
+;; Separate drawers for clocking and logs
+(setq org-drawers (quote ("PROPERTIES" "LOGBOOK" "CLOCK")))
+;; Save clock data in the CLOCK drawer and state changes and notes in the LOGBOOK drawer
+(setq org-clock-into-drawer "CLOCK")
+(setq org-log-into-drawer "LOGBOOK")
+;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
+(setq org-clock-out-remove-zero-time-clocks t)
+;; Clock out when moving task to a done state
+(setq org-clock-out-when-done t)
+;; Save the running clock and all clock history when exiting Emacs, load it on startup
+(setq org-clock-persist (quote history))
+;; Enable auto clock resolution for finding open clocks
+(setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
+;; Include current clocking task in clock reports
+(setq org-clock-report-include-clocking-task t)
+
+(setq bh/keep-clock-running nil)
+
+(defun bh/clock-in ()
+  (interactive)
+  (setq bh/keep-clock-running t)
+  (org-agenda nil "c"))
+
+(defun bh/clock-out ()
+  (interactive)
+  (setq bh/keep-clock-running nil)
+  (when (org-clock-is-active)
+    (org-clock-out)))
+
+(defun bh/clock-in-default-task ()
+  (save-excursion
+    (org-with-point-at org-clock-default-task
+      (org-clock-in))))
+
+(defun bh/clock-out-maybe ()
+  (when (and bh/keep-clock-running (not org-clock-clocking-in) (marker-buffer org-clock-default-task))
+    (bh/clock-in-default-task)))
+
+(add-hook 'org-clock-out-hook 'bh/clock-out-maybe 'append)

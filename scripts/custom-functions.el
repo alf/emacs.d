@@ -61,3 +61,50 @@
 (define-key global-map [(f10)] 'matportalen-deploy)
 (define-key global-map [(f11)] 'matportalen-search-templates)
 
+(defun bf-pretty-print-xml-region (begin end)
+  "Pretty format XML markup in region. You need to have nxml-mode
+http://www.emacswiki.org/cgi-bin/wiki/NxmlMode installed to do
+this.  The function inserts linebreaks to separate tags that have
+nothing but whitespace between them.  It then indents the markup
+by using nxml's indentation rules."
+  (interactive "r")
+  (save-excursion
+      (nxml-mode)
+      (goto-char begin)
+      (push-mark end nil)
+      (while (search-forward-regexp "\>[ \\t]*\<" nil t) 
+        (backward-char) (insert "\n"))
+      (indent-region begin (mark))
+      (pop-mark))
+    (message "Ah, much better!"))
+
+(defun open-index (id)
+  (interactive "sEnter index-id: ")
+  (let ((index-url (concat
+		    "http://ecedemo:8080/indexer-webservice/index/"
+		    id)))
+    (url-retrieve index-url 
+		  (lambda (s id)
+		    (rename-buffer (generate-new-buffer-name (concat "* index: " id)))
+		    (remove-headers)
+		    (bf-pretty-print-xml-region 1 (point-max))
+		    (pop-to-buffer (current-buffer)))
+		  (list id))))
+
+(defun solr-search (params)
+  (interactive "sEnter params: ")
+  (let ((search-url (concat
+		    "http://ecedemo:8080/solr/select?"
+		    (replace-regexp-in-string "wt=javabin" "wt=xml" params))))
+    (url-retrieve search-url
+		  (lambda (s)
+		    (rename-buffer (generate-new-buffer-name "*search-result*"))
+		    (remove-headers)
+		    (bf-pretty-print-xml-region 1 (point-max))
+		    (pop-to-buffer (current-buffer))))))
+
+(defun remove-headers ()
+  (goto-char (point-min))
+  (re-search-forward "^$" nil 'move)
+  (delete-region (point-min) (1+ (point))))
+

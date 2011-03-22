@@ -1,11 +1,5 @@
 (setq el-get-sources
       '((:name css-mode :type elpa)
-	(:name smart-tab
-	       :type elpa
-	       :after (lambda()
-			(require 'smart-tab)
-			(global-smart-tab-mode t)
-			(setq smart-tab-using-hippie-expand t)))
 	(:name magit :type elpa)
 	(:name autopair
 	       :type elpa
