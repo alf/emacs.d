@@ -18,3 +18,11 @@
 (setq dabbrev-case-fold-search 1)
 
 (define-key global-map "\M-" 'ns-toggle-fullscreen)
+
+(setq auto-mode-alist
+	(cons '("\\.zcml\\'" . nxml-mode)
+		auto-mode-alist))
+
+(setq auto-mode-alist
+	(cons '("\\.pt\\'" . nxml-mode)
+		auto-mode-alist))

@@ -81,7 +81,7 @@ by using nxml's indentation rules."
 (defun open-index (id)
   (interactive "sEnter index-id: ")
   (let ((index-url (concat
-		    "http://ecedemo:8080/indexer-webservice/index/"
+		    "http://localhost:8080/indexer-webservice/index/"
 		    id)))
     (url-retrieve index-url 
 		  (lambda (s id)
@@ -94,7 +94,7 @@ by using nxml's indentation rules."
 (defun solr-search (params)
   (interactive "sEnter params: ")
   (let ((search-url (concat
-		    "http://ecedemo:8080/solr/select?"
+		    "http://localhost:8080/solr/select?"
 		    (replace-regexp-in-string "wt=javabin" "wt=xml" params))))
     (url-retrieve search-url
 		  (lambda (s)
