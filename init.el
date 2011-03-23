@@ -19,7 +19,8 @@
 
 (load "init-elpa.el")
 (load "init-packages.el")
-(load "init-builtins.el")
+(load "init-bindings.el")
+(load "init-modes.el")
 (load "init-org.el")
 
 ;; Do this after loading other stuff so we know we get my configuration.

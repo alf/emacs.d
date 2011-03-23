@@ -3,9 +3,15 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(dabbrev-case-fold-search 1)
+ '(desktop-save-mode t)
  '(diff-switches "-u")
  '(enable-recursive-minibuffers t)
  '(find-grep-options "-q  --exclude=\"*.svn-base\" --exclude=\"*~\"")
+ '(hl-needed-mode t)
+ '(hl-needed-on-config-change nil)
+ '(ido-enable-flex-matching t)
+ '(ido-mode (quote both) nil (ido))
  '(inhibit-startup-screen t)
  '(mark-even-if-inactive t)
  '(menu-bar-mode nil)
@@ -16,11 +22,14 @@
  '(org-agenda-skip-scheduled-if-done t)
  '(org-agenda-start-on-weekday nil)
  '(org-deadline-warning-days 14)
+ '(savehist-mode t)
  '(scroll-bar-mode nil)
+ '(server-mode t)
  '(tool-bar-mode nil)
  '(transient-mark-mode t)
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
- '(vc-bzr-log-switches "--include-merges"))
+ '(vc-bzr-log-switches "--include-merges")
+ '(winner-mode t nil (winner)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
