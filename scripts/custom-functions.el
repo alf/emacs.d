@@ -58,9 +58,6 @@
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
 
-(define-key global-map [(f10)] 'matportalen-deploy)
-(define-key global-map [(f11)] 'matportalen-search-templates)
-
 (defun bf-pretty-print-xml-region (begin end)
   "Pretty format XML markup in region. You need to have nxml-mode
 http://www.emacswiki.org/cgi-bin/wiki/NxmlMode installed to do
@@ -108,3 +105,10 @@ by using nxml's indentation rules."
   (re-search-forward "^$" nil 'move)
   (delete-region (point-min) (1+ (point))))
 
+(defun alf/previous-frame ()
+  (interactive)
+  (other-frame -1))
+
+(defun alf/previous-window ()
+  (interactive)
+  (other-window -1))

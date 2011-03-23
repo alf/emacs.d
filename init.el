@@ -19,7 +19,6 @@
 
 (load "init-elpa.el")
 (load "init-packages.el")
-(load "init-bindings.el")
 (load "init-modes.el")
 (load "init-org.el")
 
@@ -27,3 +26,6 @@
 (load custom-file)
 (load "custom-functions.el")
 (load "custom-variables.el")
+
+;; This must come after custom-functions since we bind some of them.
+(load "init-bindings.el")
