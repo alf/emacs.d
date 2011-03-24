@@ -21,6 +21,7 @@
 (load "init-packages.el")
 (load "init-modes.el")
 (load "init-org.el")
+(load "init-autoloads.el")
 
 ;; Do this after loading other stuff so we know we get my configuration.
 (load custom-file)
