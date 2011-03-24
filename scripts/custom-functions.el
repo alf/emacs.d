@@ -40,11 +40,11 @@
       (sit-for 0)
       (end-of-buffer))))
 
-(defun matportalen-deploy ()
-  "Uses fabric to compile widgets and deploy them."
+(defun matportalen-build ()
+  "Uses fabric to build the project ."
   (interactive)
   (setq fabric-project-path "~/Projects/matportalen/")
-  (fabric "deploy"))
+  (fabric "build"))
 
 (defun matportalen-search-templates ()
   "Uses fabric to sync the search templates"

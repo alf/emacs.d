@@ -7,7 +7,7 @@
  '(desktop-save-mode t)
  '(diff-switches "-u")
  '(enable-recursive-minibuffers t)
- '(find-grep-options "-q  --exclude=\"*.svn-base\" --exclude=\"*~\"")
+ '(find-grep-options "-q  --exclude=\"*.svn-base\" --exclude=\"*~\" --exclude=\"*.pyc\"")
  '(hl-needed-mode t)
  '(hl-needed-on-config-change nil)
  '(ido-enable-flex-matching t)
