@@ -21,3 +21,12 @@
 
 ;; Make it easier to switch back to previous window
 (define-key global-map "\C-xO" 'alf/previous-window)
+
+;; Map the norwegian characters for convenience
+(define-key global-map [(super a)]  (kbd "å"))
+(define-key global-map [(super A)]  (kbd "Å"))
+(define-key global-map [(super o)]  (kbd "ø"))
+(define-key global-map [(super O)]  (kbd "Ø"))
+(define-key global-map [(super \')] (kbd "æ"))
+(define-key global-map [(super \")] (kbd "Æ"))
+
