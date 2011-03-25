@@ -1,3 +1,5 @@
+(require 'flymake)
+
 (define-compilation-mode fabric-mode "Fabric"
   "Specialization of compilation-mode for use with fabric"
   nil)

@@ -17,8 +17,7 @@
 
 (if (eq system-type 'darwin) (load "init-mac.el"))
 
-(load "init-elpa.el")
-(load "init-packages.el")
+(load "init-package.el")
 (load "init-modes.el")
 (load "init-org.el")
 (load "init-autoloads.el")
