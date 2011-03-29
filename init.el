@@ -6,14 +6,15 @@
 ;;; Be pretty from the start.
 (load-theme 'tango-dark)
 
-(setq emacs-dir (file-name-directory
+(setq user-emacs-directory (file-name-directory
 		 (or load-file-name (buffer-file-name))))
 (setq dropbox-dir (file-name-as-directory
-		   (expand-file-name "../.." emacs-dir)))
+		   (expand-file-name "../.." user-emacs-directory)))
 
-(setq custom-file (expand-file-name "custom.el" emacs-dir))
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
 
-(add-to-list 'load-path (expand-file-name "scripts" emacs-dir))
+(add-to-list 'load-path (expand-file-name "scripts" user-emacs-directory))
 
 (if (eq system-type 'darwin) (load "init-mac.el"))
 
@@ -23,7 +24,6 @@
 (load "init-autoloads.el")
 
 ;; Do this after loading other stuff so we know we get my configuration.
-(load custom-file)
 (load "custom-functions.el")
 (load "custom-variables.el")
 
