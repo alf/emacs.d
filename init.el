@@ -1,7 +1,6 @@
-;;; Make sure emacs can find git, etc.
+;;; Make sure emacs can find my homebrew installed stuff
 (push "/usr/local/bin" exec-path)
-(push "/Users/alf.lervag/local/bin" exec-path)
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/Users/alf.lervag/local/bin"))
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 
 ;;; Be pretty from the start.
 (load-theme 'tango-dark)
@@ -15,7 +14,6 @@
 (load custom-file)
 
 (add-to-list 'load-path (expand-file-name "scripts" user-emacs-directory))
-
 (if (eq system-type 'darwin) (load "init-mac.el"))
 
 (load "init-package.el")
