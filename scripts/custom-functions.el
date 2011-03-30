@@ -114,3 +114,9 @@ by using nxml's indentation rules."
 (defun alf/previous-window ()
   (interactive)
   (other-window -1))
+
+(defun alf/switch-binding (left right mode-map)
+  (let ((left-command (lookup-key mode-map left))
+	(right-command (lookup-key mode-map right)))
+    (define-key mode-map left right-command)
+    (define-key mode-map right left-command)))

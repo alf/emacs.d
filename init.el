@@ -16,14 +16,14 @@
 (add-to-list 'load-path (expand-file-name "scripts" user-emacs-directory))
 (if (eq system-type 'darwin) (load "init-mac.el"))
 
+(load "custom-functions.el")
+(load "init-bindings.el") ;; depends on custom-functions.el
+
 (load "init-package.el")
 (load "init-modes.el")
 (load "init-org.el")
 (load "init-autoloads.el")
 
-;; Do this after loading other stuff so we know we get my configuration.
-(load "custom-functions.el")
+;; TODO Find out where the code in here should be.  Currently it's
+;; just maven stuff
 (load "custom-variables.el")
-
-;; This must come after custom-functions since we bind some of them.
-(load "init-bindings.el")

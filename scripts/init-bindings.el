@@ -30,3 +30,8 @@
 (define-key global-map [(super \')] (kbd "æ"))
 (define-key global-map [(super \")] (kbd "Æ"))
 
+;; I prefer using meta-t for the textmate-stuff
+(add-hook 'textmate-mode-hook 
+	  '(lambda ()
+	     (alf/switch-binding [(super t)] [(meta t)] *textmate-mode-map*)
+	     (alf/switch-binding [(super T)] [(meta T)] *textmate-mode-map*)))
