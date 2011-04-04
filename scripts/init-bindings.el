@@ -33,5 +33,13 @@
 ;; I prefer using meta-t for the textmate-stuff
 (add-hook 'textmate-mode-hook 
 	  '(lambda ()
+	     (add-to-list '*textmate-project-roots* ".bzr")
 	     (alf/switch-binding [(super t)] [(meta t)] *textmate-mode-map*)
 	     (alf/switch-binding [(super T)] [(meta T)] *textmate-mode-map*)))
+
+;; window movement commands inspired by emacs
+(define-key global-map "\C-z" nil)
+(define-key global-map "\C-zh" 'windmove-left)
+(define-key global-map "\C-zl" 'windmove-right)
+(define-key global-map "\C-zk" 'windmove-up)
+(define-key global-map "\C-zj" 'windmove-down)

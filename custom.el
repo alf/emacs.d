@@ -8,6 +8,7 @@
  '(desktop-save-mode t)
  '(diff-switches "-u")
  '(enable-recursive-minibuffers t)
+ '(erc-hide-list (quote ("JOIN" "NICK" "PART" "QUIT")))
  '(erc-nick "alfborge")
  '(find-grep-options "-q  --exclude=\"*.svn-base\" --exclude=\"*~\" --exclude=\"*.pyc\"")
  '(hl-needed-mode t)
