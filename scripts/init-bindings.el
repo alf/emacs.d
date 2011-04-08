@@ -11,9 +11,10 @@
 ;; upgrade a few builtins
 (define-key global-map "\C-x\C-b" 'ibuffer)
 (define-key global-map "\C-x\C-d" 'ido-dired)
+(define-key ibuffer-mode-map [(shift return)] 'ibuffer-visit-buffer-other-window)
 
 ;; Full screen is soooo lovely
-(define-key global-map "\M-" 'ns-toggle-fullscreen)
+(define-key global-map [(meta return)] 'ns-toggle-fullscreen)
 
 ;; Make it easier to switch between frames
 (define-key global-map "\M-`" 'other-frame)
@@ -43,3 +44,20 @@
 (define-key global-map "\C-zl" 'windmove-right)
 (define-key global-map "\C-zk" 'windmove-up)
 (define-key global-map "\C-zj" 'windmove-down)
+
+;; smex gives me ido-power in meta-x
+(global-set-key [(meta x)]
+		(lambda ()
+		  (interactive)
+		  (or (boundp 'smex-cache)
+		      (smex-initialize))
+		  (global-set-key [(meta x)] 'smex)
+		  (smex)))
+
+(global-set-key [(shift meta x)]
+		(lambda ()
+		  (interactive)
+		  (or (boundp 'smex-cache)
+		      (smex-initialize))
+		  (global-set-key [(shift meta x)] 'smex-major-mode-commands)
+		  (smex-major-mode-commands)))
