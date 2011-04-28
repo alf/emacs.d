@@ -13,24 +13,22 @@
 (let ((default-directory org-directory))
   (setq org-agenda-files
 	(mapcar 'expand-file-name
-		(list "todo.org"
-		      "blog-ideas.org"
-		      "note.org"
-		      "journal.org")))
+		(list "inbox.org"
+		      "skog-og-landskap.org"
+		      "evalueringsportalen.org"
+		      "matportalen.org")))
+		      
 
   (setq org-capture-templates
-	`(("b" "Blog idea" entry
-	   (file+headline ,(expand-file-name "blog-ideas.org") "Blog ideas")
-	   "** %?\n%u\n")
-	  ("t" "Todo" entry
-	   (file+headline ,(expand-file-name "todo.org") "Tasks")
+	`(("t" "Inbox" entry
+	   (file ,(expand-file-name "inbox.org"))
 	   "* TODO %?\n %i\n")
-	  ("n" "Note" entry
-	   (file ,(expand-file-name "note.org"))
-	   "* %?\n %i\n")
 	  ("j" "Journal" entry
 	   (file+datetree ,(expand-file-name "journal.org"))
-	   "* %?\nEntered on %U\n  %i"))))
+	   "* %?\nEntered on %U\n  %i")
+	  ("b" "Blog idea" entry
+	   (file+headline ,(expand-file-name "blog-ideas.org") "Blog ideas")
+	   "** %?\n%u\n"))))
 
 (setq org-timer-default-timer 25)
 
@@ -49,7 +47,11 @@
 ;; Change task state to NEXT when clocking in
 (setq org-clock-in-switch-to-state (quote bh/clock-in-to-started))
 ;; Separate drawers for clocking and logs
-(setq org-drawers (quote ("PROPERTIES" "LOGBOOK" "CLOCK")))
+(setq org-drawers '("PROPERTIES" "LOGBOOK" "CLOCK"))
+(setq org-startup-folded "content")
+(setq org-todo-keywords 
+      '((sequence "TODO(t)" "STARTED(s!/!)" "WAITING(w@/!)" "DELEGATED(e@/!)" "|" "DONE(d@/!)" "DEFERRED" "CANCELLED(c@)")))
+
 ;; Save clock data in the CLOCK drawer and state changes and notes in the LOGBOOK drawer
 (setq org-clock-into-drawer "CLOCK")
 (setq org-log-into-drawer "LOGBOOK")
