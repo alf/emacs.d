@@ -11,7 +11,10 @@
 ;; upgrade a few builtins
 (define-key global-map "\C-x\C-b" 'ibuffer)
 (define-key global-map "\C-x\C-d" 'ido-dired)
-(define-key ibuffer-mode-map [(shift return)] 'ibuffer-visit-buffer-other-window)
+
+(add-hook 'ibuffer-mode-hooks '(lambda ()
+				 (define-key ibuffer-mode-map [(shift return)] 'ibuffer-visit-buffer-other-window)))
+
 
 ;; Full screen is soooo lovely
 (define-key global-map [(meta return)] 'ns-toggle-fullscreen)
