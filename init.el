@@ -1,6 +1,7 @@
 ;;; Make sure emacs can find my homebrew installed stuff
 (push "/usr/local/bin" exec-path)
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+(push "/usr/local/Cellar/python/2.7.1/bin" exec-path)
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/usr/local/Cellar/python/2.7.1/bin"))
 
 ;;; Be pretty from the start.
 (load-theme 'tango-dark)

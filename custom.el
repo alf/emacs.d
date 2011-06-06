@@ -4,6 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(autopair-global-mode t)
+ '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
  '(dabbrev-case-fold-search 1)
  '(desktop-save-mode t)
  '(diff-switches "-u")
@@ -50,4 +51,5 @@
  '(diff-nonexistent ((((background dark)) (:foreground "#FFFFFFFF7474")) (t (:foreground "DarkBlue"))))
  '(diff-refine-change ((t nil)))
  '(diff-removed ((((background dark)) (:foreground "#FFFF9B9BFFFF")) (t (:foreground "DarkMagenta"))))
- '(highlight ((((class color) (min-colors 89)) (:foreground "#2e3436" :background "#edd400")))))
+ '(highlight ((((class color) (min-colors 89)) (:foreground "#2e3436" :background "#edd400"))))
+ '(org-hide ((((background light)) (:foreground "white")) (((background dark)) (:foreground "grey20")))))
