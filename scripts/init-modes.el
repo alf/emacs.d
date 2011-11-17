@@ -47,8 +47,21 @@ they line up with the line containing the corresponding opening bracket."
   (add-to-list 'flymake-allowed-file-name-masks 
                '("\\.py\\'" flymake-check-init))
 
-  (add-to-list 'flymake-allowed-file-name-masks 
-               '("\\.js\\'" flymake-check-init)))
+  (defun flymake-jslint-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+		       'flymake-create-temp-inplace))
+           (local-file (file-relative-name
+                        temp-file
+                        (file-name-directory buffer-file-name))))
+      (list "jslint" (list local-file))))
+
+  (setq flymake-err-line-patterns 
+	(cons '("^  [[:digit:]]+ \\([[:digit:]]+\\),\\([[:digit:]]+\\): \\(.+\\)$"  
+		nil 1 2 3)
+	      flymake-err-line-patterns))
+  
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.js\\'" flymake-jslint-init)))
 
 (eval-after-load "rng-loc"
   '(add-to-list 'rng-schema-locating-files 

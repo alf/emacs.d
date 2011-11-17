@@ -1,7 +1,8 @@
 ;;; Make sure emacs can find my homebrew installed stuff
 (push "/usr/local/bin" exec-path)
 (push "/usr/local/Cellar/python/2.7.1/bin" exec-path)
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/usr/local/Cellar/python/2.7.1/bin"))
+(push "/Users/alf.lervag/local/bin" exec-path)
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/usr/local/Cellar/python/2.7.1/bin" ":/Users/alf.lervag/local/bin"))
 
 (setq user-emacs-directory (file-name-directory
 		 (or load-file-name (buffer-file-name))))
