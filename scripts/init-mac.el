@@ -1,5 +1,5 @@
-(setq mac-option-key-is-meta nil)
-(setq mac-option-modifier 'super)
+(setq ns-alternate-modifier 'super)
+(setq ns-command-modifier 'meta)
+(setq ns-right-alternate-modifier 'nil)
+(setq ns-right-command-modifier 'super)
 
-(setq mac-command-key-is-meta t)
-(setq mac-command-modifier 'meta)

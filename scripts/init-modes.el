@@ -8,6 +8,7 @@
 
 (add-hook 'python-mode-hook
 	  (lambda()
+            (setenv "LANG" "en_US.UTF-8")
 	    (set (make-local-variable 'compile-command) (concat "python " (buffer-name)))))
 
 (defadvice python-calculate-indentation (around outdent-closing-brackets)
@@ -44,4 +45,17 @@ they line up with the line containing the corresponding opening bracket."
         (list "check.py" (list local-file)))))
 
   (add-to-list 'flymake-allowed-file-name-masks 
-               '("\\.py\\'" flymake-check-init)))
+               '("\\.py\\'" flymake-check-init))
+
+  (add-to-list 'flymake-allowed-file-name-masks 
+               '("\\.js\\'" flymake-check-init)))
+
+(eval-after-load "rng-loc"
+  '(add-to-list 'rng-schema-locating-files 
+                (expand-file-name "plugins/html5-el/schemas.xml" user-emacs-directory)))
+
+(require 'whattf-dt)
+
+(setq smex-save-file (concat user-emacs-directory ".smex-items"))
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)

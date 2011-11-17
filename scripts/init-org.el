@@ -14,15 +14,14 @@
   (setq org-agenda-files
 	(mapcar 'expand-file-name
 		(list "inbox.org"
-		      "skog-og-landskap.org"
-		      "evalueringsportalen.org"
-		      "matportalen.org")))
+                      "journal.org"
+                      "projects")))
 		      
 
   (setq org-capture-templates
-	`(("t" "Inbox" entry
+	`(("c" "Inbox" entry
 	   (file ,(expand-file-name "inbox.org"))
-	   "* TODO %?\n %i\n")
+	   "* TODO %?\n %i\nEntered on %U")
 	  ("j" "Journal" entry
 	   (file+datetree ,(expand-file-name "journal.org"))
 	   "* %?\nEntered on %U\n  %i")
@@ -34,6 +33,7 @@
 
 (add-hook 'org-mode-hook
 	  '(lambda()
+	     (org-indent-mode)
 	     (setq fill-column 78)))
 
 
