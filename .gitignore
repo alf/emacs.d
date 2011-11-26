@@ -6,3 +6,8 @@ elpa
 /url/cookies
 /bookmarks
 /history
+/.smex-items
+/eshell/history
+/eshell/lastdir
+/org-clock-save.el
+/places

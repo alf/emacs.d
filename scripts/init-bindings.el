@@ -3,6 +3,8 @@
 ;(define-key read-expression-map [(tab)] 'hippie-expand)
 ;(define-key read-expression-map [(shift tab)] 'unexpand)
 
+(if (eq system-type 'darwin) (load "init-mac.el"))
+
 ;; quick access to stuff I use a lot
 (define-key global-map [(f9)] 'recompile)
 (define-key global-map [(f10)] 'matportalen-build)

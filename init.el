@@ -1,15 +1,29 @@
-;;; Make sure emacs can find my homebrew installed stuff
-(push "/usr/local/bin" exec-path)
-(push "/usr/local/Cellar/python/2.7.1/bin" exec-path)
-(push "/Users/alf.lervag/local/bin" exec-path)
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/usr/local/Cellar/python/2.7.1/bin" ":/Users/alf.lervag/local/bin"))
+;;; -*- lexical-binding: t -*-
 
-(setq user-emacs-directory (file-name-directory
-		 (or load-file-name (buffer-file-name))))
-(setq custom-theme-directory (file-name-as-directory
-		   (expand-file-name "themes" user-emacs-directory)))
-(setq dropbox-dir (file-name-as-directory
-		   (expand-file-name "../.." user-emacs-directory)))
+(require 'package)
+
+(add-to-list 'package-archives '("tromey" . "http://tromey.com/elpa/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(package-initialize)
+
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
+;; Add in your own as you wish:
+(defvar my-packages '(smex magit)
+  "A list of packages to ensure are installed at launch.")
+
+(dolist (p my-packages)
+  (when (not (package-installed-p p))
+    (package-install p)))
+
+(setq smex-save-file (concat user-emacs-directory ".smex-items"))
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+
+(let ((alf-system-config (concat user-emacs-directory system-name ".el")))
+  (when (file-exists-p alf-system-config)
+    (load alf-system-config)))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
@@ -19,12 +33,9 @@
 (add-to-list 'load-path (expand-file-name "plugins/zencoding" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "plugins/html5-el" user-emacs-directory))
 
-(if (eq system-type 'darwin) (load "init-mac.el"))
-
 (load "custom-functions.el")
 (load "init-bindings.el") ;; depends on custom-functions.el
 
-(load "init-package.el")
 (load "init-modes.el")
 (load "init-hooks.el")
 (load "init-org.el")
