@@ -1,8 +1,11 @@
-
-elpa
+/elpa
 *~
 *.elc
 /tramp
 /url/cookies
 /bookmarks
 /history
+/secret-settings.el
+/.smex-items
+/el-get
+/org-clock-save.el

@@ -1,21 +1,37 @@
-;;; Make sure emacs can find my homebrew installed stuff
-(push "/usr/local/bin" exec-path)
-(push "/usr/local/Cellar/python/2.7.1/bin" exec-path)
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/usr/local/Cellar/python/2.7.1/bin"))
+(add-to-list 'load-path (expand-file-name "el-get/el-get" user-emacs-directory))
 
-;;; Be pretty from the start.
-(load-theme 'tango-dark)
+(unless (require 'el-get nil t)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+    (end-of-buffer)
+    (eval-print-last-sexp)))
 
-(setq user-emacs-directory (file-name-directory
-		 (or load-file-name (buffer-file-name))))
-(setq dropbox-dir (file-name-as-directory
-		   (expand-file-name "../.." user-emacs-directory)))
+;; local sources
+(setq el-get-sources
+      '((:name magit
+               :after (lambda () (global-set-key (kbd "C-x C-z") 'magit-status)))
+
+        (:name smex)))
+
+(el-get 'sync)
+
+(let ((alf-system-file (concat user-emacs-directory system-name ".el"))
+      (alf-secret-file (concat user-emacs-directory "secret-settings.el")))
+  (when (file-exists-p alf-system-file) (load alf-system-file))
+  (when (file-exists-p alf-secret-file) (load alf-secret-file)))
+
+(setq smex-save-file (concat user-emacs-directory ".smex-items"))
+  (smex-initialize)
+  (global-set-key (kbd "M-x") 'smex)
+
+(put 'ido-exit-minibuffer 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
 (add-to-list 'load-path (expand-file-name "scripts" user-emacs-directory))
-(if (eq system-type 'darwin) (load "init-mac.el"))
 
 (load "custom-functions.el")
 (load "init-bindings.el") ;; depends on custom-functions.el

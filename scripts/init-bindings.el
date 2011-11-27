@@ -1,3 +1,5 @@
+(if (eq system-type 'darwin) (load "init-mac.el"))
+
 ;; Setup expansion
 (define-key global-map "\M-/" 'dabbrev-expand)
 (define-key read-expression-map [(tab)] 'hippie-expand)
@@ -48,19 +50,3 @@
 (define-key global-map "\C-zk" 'windmove-up)
 (define-key global-map "\C-zj" 'windmove-down)
 
-;; smex gives me ido-power in meta-x
-(global-set-key [(meta x)]
-		(lambda ()
-		  (interactive)
-		  (or (boundp 'smex-cache)
-		      (smex-initialize))
-		  (global-set-key [(meta x)] 'smex)
-		  (smex)))
-
-(global-set-key [(shift meta x)]
-		(lambda ()
-		  (interactive)
-		  (or (boundp 'smex-cache)
-		      (smex-initialize))
-		  (global-set-key [(shift meta x)] 'smex-major-mode-commands)
-		  (smex-major-mode-commands)))
