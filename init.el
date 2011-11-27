@@ -7,12 +7,26 @@
     (end-of-buffer)
     (eval-print-last-sexp)))
 
-;; local sources
-(setq el-get-sources
-      '((:name magit
-               :after (lambda () (global-set-key (kbd "C-x C-z") 'magit-status)))
+;; set local recipes
+(setq
+ el-get-sources
+ '((:name evil
+	  :after (lambda ()
+		   (evil-mode 1)))
+   (:name smex				; a better (ido like) M-x
+	  :after (lambda ()
+		   (setq smex-save-file "~/.emacs.d/.smex-items")
+		   (global-set-key (kbd "M-x") 'smex)
+		   (global-set-key (kbd "M-X") 'smex-major-mode-commands)))
 
-        (:name smex)))
+   (:name magit				; git meet emacs, and a binding
+	  :after (lambda ()
+		   (global-set-key (kbd "C-x C-z") 'magit-status)))
+
+   (:name goto-last-change		; move pointer back to last change
+	  :after (lambda ()
+		   ;; when using AZERTY keyboard, consider C-x C-_
+		   (global-set-key (kbd "C-x C-/") 'goto-last-change)))))
 
 (el-get 'sync)
 
@@ -20,10 +34,6 @@
       (alf-secret-file (concat user-emacs-directory "secret-settings.el")))
   (when (file-exists-p alf-system-file) (load alf-system-file))
   (when (file-exists-p alf-secret-file) (load alf-secret-file)))
-
-(setq smex-save-file (concat user-emacs-directory ".smex-items"))
-  (smex-initialize)
-  (global-set-key (kbd "M-x") 'smex)
 
 (put 'ido-exit-minibuffer 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
