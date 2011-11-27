@@ -175,7 +175,14 @@ by using nxml's indentation rules."
 (add-to-list 'compilation-error-regexp-alist 'mvn)
 (add-to-list 'compilation-error-regexp-alist 'mvn-warning)
 (add-hook 'dired-load-hook (lambda () (load "dired-x")))
-(if (eq system-type 'darwin) (load "init-mac.el"))
+
+(if (eq system-type 'darwin)
+    (progn
+      (setq mac-option-key-is-meta nil)
+      (setq mac-option-modifier 'super)
+
+      (setq mac-command-key-is-meta t)
+      (setq mac-command-modifier 'meta)))
 
 ;; Setup expansion
 (define-key global-map "\M-/" 'dabbrev-expand)
@@ -226,12 +233,6 @@ by using nxml's indentation rules."
 (define-key global-map "\C-zl" 'windmove-right)
 (define-key global-map "\C-zk" 'windmove-up)
 (define-key global-map "\C-zj" 'windmove-down)
-
-(setq mac-option-key-is-meta nil)
-(setq mac-option-modifier 'super)
-
-(setq mac-command-key-is-meta t)
-(setq mac-command-modifier 'meta)
 
 (setq auto-mode-alist
 	(cons '("\\.zcml\\'" . nxml-mode)
