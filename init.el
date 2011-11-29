@@ -297,9 +297,7 @@ they line up with the line containing the corresponding opening bracket."
   (setq org-agenda-files
 	(mapcar 'expand-file-name
 		(list "inbox.org"
-		      "skog-og-landskap.org"
-		      "evalueringsportalen.org"
-		      "matportalen.org")))
+		      "projects")))
 		      
 
   (setq org-capture-templates
