@@ -177,12 +177,11 @@ by using nxml's indentation rules."
 (add-hook 'dired-load-hook (lambda () (load "dired-x")))
 
 (if (eq system-type 'darwin)
-    (progn
-      (setq mac-option-key-is-meta nil)
-      (setq mac-option-modifier 'super)
-
-      (setq mac-command-key-is-meta t)
-      (setq mac-command-modifier 'meta)))
+    (custom-set-variables
+     '(ns-command-modifier 'meta)
+     '(ns-right-command-modifier 'meta)
+     '(ns-option-modifier nil)
+     '(ns-right-option-modifier nil)))
 
 ;; Setup expansion
 (define-key global-map "\M-/" 'dabbrev-expand)
