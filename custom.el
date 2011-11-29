@@ -5,6 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(autopair-global-mode t)
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
+ '(column-number-mode t)
  '(dabbrev-case-fold-search 1)
  '(desktop-save-mode t)
  '(diff-switches "-u")
