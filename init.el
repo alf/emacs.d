@@ -24,6 +24,10 @@
 	  :after (lambda ()
 		   (global-set-key (kbd "C-x C-z") 'magit-status)))
 
+   (:name color-theme-solarized
+	  :after (lambda ()
+		   (color-theme-solarized-dark)))
+
    (:name goto-last-change		; move pointer back to last change
 	  :after (lambda ()
 		   ;; when using AZERTY keyboard, consider C-x C-_
