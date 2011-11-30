@@ -1,6 +1,5 @@
-
-elpa
 *~
+/elpa
 *.elc
 /tramp
 /url/cookies
@@ -11,3 +10,5 @@ elpa
 /eshell/lastdir
 /org-clock-save.el
 /places
+/secret-settings.el
+/el-get
