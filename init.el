@@ -30,10 +30,10 @@
 
    (:name flymake-point)
 
-   (:name goto-last-change		; move pointer back to last change
-	  :after (lambda ()
-		   ;; when using AZERTY keyboard, consider C-x C-_
-		   (global-set-key (kbd "C-x C-/") 'goto-last-change)))))
+   (:name js2-mode
+          :after (lambda ()
+                   (autoload 'js2-mode "js2" nil t)
+                   (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))))))
 
 (setq my-packages
       (mapcar 'el-get-source-name el-get-sources))
