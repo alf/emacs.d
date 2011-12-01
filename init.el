@@ -28,12 +28,17 @@
 	  :after (lambda ()
 		   (color-theme-solarized-dark)))
 
+   (:name flymake-point)
+
    (:name goto-last-change		; move pointer back to last change
 	  :after (lambda ()
 		   ;; when using AZERTY keyboard, consider C-x C-_
 		   (global-set-key (kbd "C-x C-/") 'goto-last-change)))))
 
-(el-get 'sync)
+(setq my-packages
+      (mapcar 'el-get-source-name el-get-sources))
+
+(el-get 'sync my-packages)
 
 (let ((alf-system-file (concat user-emacs-directory system-name ".el"))
       (alf-secret-file (concat user-emacs-directory "secret-settings.el")))
@@ -284,6 +289,7 @@ they line up with the line containing the corresponding opening bracket."
 
   (add-to-list 'flymake-allowed-file-name-masks 
                '("\\.py\\'" flymake-check-init)))
+
 (require 'org-install)
 
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
