@@ -12,7 +12,10 @@
  el-get-sources
  '((:name evil
 	  :after (lambda ()
-		   (define-key evil-insert-state-map "\C-c" 'evil-normal-state)
+		   (define-key evil-normal-state-map (kbd "<return>") 'evil-next-line)
+		   (define-key evil-normal-state-map (kbd "C-SPC") 'evil-normal-state)
+		   (define-key evil-insert-state-map (kbd "C-SPC") 'evil-normal-state)
+		   (define-key evil-insert-state-map (kbd "C-h") 'backward-delete-char-untabify)
 		   (evil-mode 1)))
    (:name smex				; a better (ido like) M-x
 	  :after (lambda ()
@@ -120,21 +123,21 @@ nothing but whitespace between them.  It then indents the markup
 by using nxml's indentation rules."
   (interactive "r")
   (save-excursion
-      (nxml-mode)
-      (goto-char begin)
-      (push-mark end nil)
-      (while (search-forward-regexp "\>[ \\t]*\<" nil t) 
-        (backward-char) (insert "\n"))
-      (indent-region begin (mark))
-      (pop-mark))
-    (message "Ah, much better!"))
+    (nxml-mode)
+    (goto-char begin)
+    (push-mark end nil)
+    (while (search-forward-regexp "\>[ \\t]*\<" nil t)
+      (backward-char) (insert "\n"))
+    (indent-region begin (mark))
+    (pop-mark))
+  (message "Ah, much better!"))
 
 (defun open-index (id)
   (interactive "sEnter index-id: ")
   (let ((index-url (concat
 		    "http://localhost:8080/indexer-webservice/index/"
 		    id)))
-    (url-retrieve index-url 
+    (url-retrieve index-url
 		  (lambda (s id)
 		    (rename-buffer (generate-new-buffer-name (concat "* index: " id)))
 		    (remove-headers)
@@ -145,8 +148,8 @@ by using nxml's indentation rules."
 (defun solr-search (params)
   (interactive "sEnter params: ")
   (let ((search-url (concat
-		    "http://localhost:8080/solr/select?"
-		    (replace-regexp-in-string "wt=javabin" "wt=xml" params))))
+                     "http://localhost:8080/solr/select?"
+                     (replace-regexp-in-string "wt=javabin" "wt=xml" params))))
     (url-retrieve search-url
 		  (lambda (s)
 		    (rename-buffer (generate-new-buffer-name "*search-result*"))
@@ -228,7 +231,7 @@ by using nxml's indentation rules."
 (define-key global-map [(super \")] (kbd "Æ"))
 
 ;; I prefer using meta-t for the textmate-stuff
-(add-hook 'textmate-mode-hook 
+(add-hook 'textmate-mode-hook
 	  '(lambda ()
 	     (add-to-list '*textmate-project-roots* ".bzr")
 	     (alf/switch-binding [(super t)] [(meta t)] *textmate-mode-map*)
@@ -242,12 +245,12 @@ by using nxml's indentation rules."
 (define-key global-map "\C-zj" 'windmove-down)
 
 (setq auto-mode-alist
-	(cons '("\\.zcml\\'" . nxml-mode)
-		auto-mode-alist))
+      (cons '("\\.zcml\\'" . nxml-mode)
+            auto-mode-alist))
 
 (setq auto-mode-alist
-	(cons '("\\.pt\\'" . nxml-mode)
-		auto-mode-alist))
+      (cons '("\\.pt\\'" . nxml-mode)
+            auto-mode-alist))
 
 (add-hook 'python-mode-hook
 	  (lambda()
@@ -275,18 +278,18 @@ they line up with the line containing the corresponding opening bracket."
 (when (load "flymake" t)
   (require 'tramp-cmds)
   (setq flymake-gui-warnings-enabled nil)
-  
-  (defun flymake-check-init () 
+
+  (defun flymake-check-init ()
     ;; Make sure it's not a remote buffer or flymake would not work
     (when (not (subsetp (list (current-buffer)) (tramp-list-remote-buffers)))
-      (let* ((temp-file (flymake-init-create-temp-buffer-copy 
-                         'flymake-create-temp-inplace)) 
-             (local-file (file-relative-name 
-                          temp-file 
-                          (file-name-directory buffer-file-name)))) 
+      (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                         'flymake-create-temp-inplace))
+             (local-file (file-relative-name
+                          temp-file
+                          (file-name-directory buffer-file-name))))
         (list "check.py" (list local-file)))))
 
-  (add-to-list 'flymake-allowed-file-name-masks 
+  (add-to-list 'flymake-allowed-file-name-masks
                '("\\.py\\'" flymake-check-init)))
 
 (require 'org-install)
@@ -306,7 +309,7 @@ they line up with the line containing the corresponding opening bracket."
 	(mapcar 'expand-file-name
 		(list "inbox.org"
 		      "projects")))
-		      
+
 
   (setq org-capture-templates
 	`(("t" "Inbox" entry
@@ -338,7 +341,7 @@ they line up with the line containing the corresponding opening bracket."
 ;; Separate drawers for clocking and logs
 (setq org-drawers '("PROPERTIES" "LOGBOOK" "CLOCK"))
 (setq org-startup-folded "content")
-(setq org-todo-keywords 
+(setq org-todo-keywords
       '((sequence "TODO(t)" "STARTED(s!/!)" "WAITING(w@/!)" "DELEGATED(e@/!)" "|" "DONE(d@/!)" "DEFERRED" "CANCELLED(c@)")))
 
 ;; Save clock data in the CLOCK drawer and state changes and notes in the LOGBOOK drawer
@@ -383,7 +386,7 @@ they line up with the line containing the corresponding opening bracket."
 ;; Copyright (C) 2000 by Ingo Koch
 
 ;; Author: ingo Koch <ingo.koch@ikoch.de>
-;; The Idea and a lot of the code is stolen from the 
+;; The Idea and a lot of the code is stolen from the
 ;; .emacs file of  Jake Donham <jake@bitmechanic.com>
 ;; available at http://www.jaked.org/emacs.html
 ;; who did this for the mocha java decompiler
@@ -408,21 +411,21 @@ they line up with the line containing the corresponding opening bracket."
 ;;; Description:
 
 ;; This package is an add-on to the Java Development Environment
-;; (JDE) for Emacs. It automatically decompiles a class file and 
+;; (JDE) for Emacs. It automatically decompiles a class file and
 ;; offers you a buffer to view or edit it.
 ;; javadecomp (currently) relies on the jad java decompiler to
 ;; do the actual work, but it should be possible to extend it to
 ;; whatever you like (sugestions are welcome).
-;; jad is available at the Jad home page: 
+;; jad is available at the Jad home page:
 ;; http://www.geocities.com/SiliconValley/Bridge/8617/jad.html
 ;; by Pavel Kouznetsov (kpdus@yahoo.com).
 ;; It supports a wide range of OS like:
-;; - Windows 95/NT on Intel platform 
-;; - Linux on Intel platform 
+;; - Windows 95/NT on Intel platform
+;; - Linux on Intel platform
 ;; - Solaris 7.0 on Intel platform
-;; - Rhapsody 5.3 on PowerPC platform 
-;; - AIX 4.2 on IBM RS/6000 platform 
-;; - OS/2 
+;; - Rhapsody 5.3 on PowerPC platform
+;; - AIX 4.2 on IBM RS/6000 platform
+;; - OS/2
 ;; - Solaris 2.5 on SUN Sparc platform
 ;; - FreeBSD 2.2.x
 
@@ -472,12 +475,62 @@ command and load the decompiled file."
     (shell-command command)
     (find-alternate-file jdc-javafile)))
 
-;; a hook to be able to automatically decompile-find-file .class files 
+;; a hook to be able to automatically decompile-find-file .class files
 (add-hook
  'find-file-hooks
- (lambda () 
+ (lambda ()
    (let ((file (buffer-file-name)))
      (cond ((string= (substring file -6) ".class")
 	    (progn (jdc-buffer) (java-mode)))))))
 
 (provide 'javadecomp)
+
+(defun maximize-frame ()
+  (interactive)
+  (set-frame-position (selected-frame) 0 20)
+  (set-frame-size (selected-frame) 270 76))
+
+(defun my-js2-indent-function ()
+  (interactive)
+  (save-restriction
+    (widen)
+    (let* ((inhibit-point-motion-hooks t)
+           (parse-status (save-excursion (syntax-ppss (point-at-bol))))
+           (offset (- (current-column) (current-indentation)))
+           (indentation (js--proper-indentation parse-status))
+           node)
+
+      (save-excursion
+
+        ;; I like to indent case and labels to half of the tab width
+        (back-to-indentation)
+        (if (looking-at "case\\s-")
+            (setq indentation (+ indentation (/ js-indent-level 2))))
+
+        ;; consecutive declarations in a var statement are nice if
+        ;; properly aligned, i.e:
+        ;;
+        ;; var foo = "bar",
+        ;;     bar = "foo";
+        (setq node (js2-node-at-point))
+        (when (and node
+                   (= js2-NAME (js2-node-type node))
+                   (= js2-VAR (js2-node-type (js2-node-parent node))))
+          (setq indentation (+ 4 indentation))))
+
+      (indent-line-to indentation)
+      (when (> offset 0) (forward-char offset)))))
+
+(defun my-js2-mode-hook ()
+  (setq js-indent-level 4)
+  (c-toggle-auto-state 0)
+  (c-toggle-hungry-state 1)
+  (set (make-local-variable 'indent-line-function) 'my-js2-indent-function)
+  (define-key js2-mode-map [(backspace)] 'c-electric-backspace)
+  (define-key js2-mode-map [(control d)] 'c-electric-delete-forward)
+  (define-key js2-mode-map [(control meta q)] 'my-indent-sexp)
+  (if (featurep 'js2-highlight-vars)
+    (js2-highlight-vars-mode))
+  (message "My JS2 hook"))
+
+(add-hook 'js2-mode-hook 'my-js2-mode-hook)
