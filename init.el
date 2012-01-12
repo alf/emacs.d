@@ -190,7 +190,7 @@ by using nxml's indentation rules."
             parent (file-name-directory (directory-file-name dir))))
     (if (string= dir parent)
         (error "Search file %s is missing" compile-search-file)
-      (with-current-buffer compilation-last-buffer
+      (with-current-buffer outbuf
         (setq default-directory dir)))))
 
 (setq compilation-process-setup-function 'find-search-file)
