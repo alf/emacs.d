@@ -177,16 +177,30 @@ by using nxml's indentation rules."
 	(right-command (lookup-key mode-map right)))
     (define-key mode-map left right-command)
     (define-key mode-map right left-command)))
+
+(require 'compile)
+(setq compile-search-file "pom.xml")
+(defun find-search-file ()
+  ;; Search for the pom file traversing up the directory tree.
+  (setq dir (expand-file-name default-directory))
+  (let ((parent (file-name-directory (directory-file-name dir))))
+    (while (and (not (file-readable-p (concat dir compile-search-file)))
+                (not (string= parent dir)))
+      (setq dir parent
+            parent (file-name-directory (directory-file-name dir))))
+    (if (string= dir parent)
+        (error "Search file %s is missing" compile-search-file)
+      (with-current-buffer compilation-last-buffer
+        (setq default-directory dir)))))
+
+(setq compilation-process-setup-function 'find-search-file)
+
 ;; Add support for mvn compilation errors, taken from
 ;; http://jroller.com/malformed/entry/emacs_maven_2
-(add-to-list
- 'compilation-error-regexp-alist-alist
- '(mvn "\\(^/.*\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\]" 1 2 3 2 1))
-(add-to-list
- 'compilation-error-regexp-alist-alist
- '(mvn-warning "^\\[WARNING\\] \\(/.*\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\]" 1 2 3 1 1))
 (add-to-list 'compilation-error-regexp-alist 'mvn)
-(add-to-list 'compilation-error-regexp-alist 'mvn-warning)
+
+(add-to-list 'compilation-error-regexp-alist-alist
+	     '(mvn "\\[ERROR\\] \\(.+?\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\].*" 1 2 3))
 (add-hook 'dired-load-hook (lambda () (load "dired-x")))
 
 (if (eq system-type 'darwin)
