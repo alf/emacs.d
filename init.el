@@ -31,6 +31,8 @@
 	  :after (lambda ()
 		   (color-theme-solarized-dark)))
 
+   (:name textmate)
+
    (:name flymake-point)
 
    (:name js2-mode
