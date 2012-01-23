@@ -22,19 +22,19 @@
 		   (setq smex-save-file "~/.emacs.d/.smex-items")
 		   (global-set-key (kbd "M-x") 'smex)
 		   (global-set-key (kbd "M-X") 'smex-major-mode-commands)))
-
    (:name magit				; git meet emacs, and a binding
 	  :after (lambda ()
 		   (global-set-key (kbd "C-x C-z") 'magit-status)))
-
    (:name color-theme-solarized
 	  :after (lambda ()
 		   (color-theme-solarized-dark)))
-
    (:name textmate)
-
    (:name flymake-point)
-
+   (:name autopair)
+   (:name paredit)
+   (:name yasnippet
+       :type git
+       :url "https://github.com/capitaomorte/yasnippet.git")
    (:name js2-mode
           :after (lambda ()
                    (autoload 'js2-mode "js2" nil t)))))
