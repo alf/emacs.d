@@ -38,7 +38,6 @@
    (:name yasnippet
        :type git
        :url "https://github.com/capitaomorte/yasnippet.git")
->>>>>>> 3eff7445708989f9afbe815ab9ded823f5480ee8
    (:name js2-mode
           :after (lambda ()
                    (autoload 'js2-mode "js2" nil t)))))
