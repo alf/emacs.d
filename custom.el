@@ -9,6 +9,7 @@
  '(compilation-scroll-output (quote first-error))
  '(custom-safe-themes (quote ("381c92f4ee13b5ffe4e269a8b5cbf763faf1c9ea" "517aecb1202bfa31fd3c44473d72483c5166124d" default)))
  '(dabbrev-case-fold-search nil)
+ '(dabbrev-search-these-buffers-only nil)
  '(desktop-save-mode nil)
  '(diff-switches "-u")
  '(display-buffer-reuse-frames t)
@@ -61,7 +62,8 @@
  '(tool-bar-mode nil)
  '(transient-mark-mode nil)
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
- '(vc-bzr-log-switches "--include-merges"))
+ '(vc-bzr-log-switches "--include-merges")
+ '(yas/prompt-functions (quote (yas/ido-prompt yas/completing-prompt yas/dropdown-prompt yas/x-prompt yas/no-prompt))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
