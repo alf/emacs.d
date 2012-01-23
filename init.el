@@ -1,3 +1,4 @@
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 (add-to-list 'load-path (expand-file-name "el-get/el-get" user-emacs-directory))
 
 (unless (require 'el-get nil t)
@@ -31,9 +32,13 @@
 	  :after (lambda ()
 		   (color-theme-solarized-dark)))
 
+   (:name python)
+
+   (:name virtualenv)
+
    (:name textmate)
 
-   (:name flymake-point)
+;   (:name flymake-point)
 
    (:name js2-mode
           :after (lambda ()
