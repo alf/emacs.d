@@ -545,6 +545,8 @@ command and load the decompiled file."
   (define-key js2-mode-map [(backspace)] 'c-electric-backspace)
   (define-key js2-mode-map [(control d)] 'c-electric-delete-forward)
   (define-key js2-mode-map [(control meta q)] 'my-indent-sexp)
+  (if (fboundp 'autopair-mode) ; js2-mode has its own auto-pairing
+      (setq autopair-dont-activate t))))
   (if (featurep 'js2-highlight-vars)
     (js2-highlight-vars-mode))
   (message "My JS2 hook"))
