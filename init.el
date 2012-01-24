@@ -17,7 +17,8 @@
 		   (define-key evil-normal-state-map (kbd "C-SPC") 'evil-normal-state)
 		   (define-key evil-insert-state-map (kbd "C-SPC") 'evil-normal-state)
 		   (define-key evil-insert-state-map (kbd "C-h") 'backward-delete-char-untabify)
-		   (evil-mode 1)))
+		   (evil-mode 1))
+	  :depends nil)
    (:name smex				; a better (ido like) M-x
 	  :after (lambda ()
 		   (setq smex-save-file "~/.emacs.d/.smex-items")
@@ -549,7 +550,7 @@ command and load the decompiled file."
   (define-key js2-mode-map [(control d)] 'c-electric-delete-forward)
   (define-key js2-mode-map [(control meta q)] 'my-indent-sexp)
   (if (fboundp 'autopair-mode) ; js2-mode has its own auto-pairing
-      (setq autopair-dont-activate t))))
+      (setq autopair-dont-activate t))
   (if (featurep 'js2-highlight-vars)
     (js2-highlight-vars-mode))
   (message "My JS2 hook"))
