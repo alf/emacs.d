@@ -16,6 +16,7 @@
 		   (define-key evil-normal-state-map (kbd "<return>") 'evil-next-line)
 		   (define-key evil-normal-state-map (kbd "C-SPC") 'evil-normal-state)
 		   (define-key evil-insert-state-map (kbd "C-SPC") 'evil-normal-state)
+		   (define-key evil-replace-state-map (kbd "C-SPC") 'evil-normal-state)
 		   (define-key evil-insert-state-map (kbd "C-h") 'backward-delete-char-untabify)
 		   (evil-mode 1))
 	  :depends nil)
