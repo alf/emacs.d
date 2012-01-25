@@ -33,7 +33,7 @@
    (:name python)
    (:name virtualenv)
    (:name textmate)
-;   (:name flymake-point)
+   (:name flymake-point)
    (:name autopair)
    (:name paredit)
    (:name yasnippet
