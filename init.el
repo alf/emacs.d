@@ -184,12 +184,6 @@ by using nxml's indentation rules."
   (interactive)
   (other-window -1))
 
-(defun alf/switch-binding (left right mode-map)
-  (let ((left-command (lookup-key mode-map left))
-	(right-command (lookup-key mode-map right)))
-    (define-key mode-map left right-command)
-    (define-key mode-map right left-command)))
-
 (require 'compile)
 (setq compile-search-file "pom.xml")
 (defun find-search-file ()
@@ -262,8 +256,7 @@ by using nxml's indentation rules."
 (add-hook 'textmate-mode-hook
 	  '(lambda ()
 	     (add-to-list '*textmate-project-roots* ".bzr")
-	     (alf/switch-binding [(super t)] [(meta t)] *textmate-mode-map*)
-	     (alf/switch-binding [(super T)] [(meta T)] *textmate-mode-map*)))
+	     (define-key *textmate-mode-map* [(ctrl \;)] 'textmate-goto-file)))
 
 ;; window movement commands inspired by emacs
 (define-key global-map "\C-z" nil)
@@ -550,17 +543,20 @@ command and load the decompiled file."
       (when (> offset 0) (forward-char offset)))))
 
 (defun my-js2-mode-hook ()
+  (require 'js)
   (setq js-indent-level 4)
   (c-toggle-auto-state 0)
   (c-toggle-hungry-state 1)
+
   (set (make-local-variable 'indent-line-function) 'my-js2-indent-function)
+
   (define-key js2-mode-map [(backspace)] 'c-electric-backspace)
   (define-key js2-mode-map [(control d)] 'c-electric-delete-forward)
   (define-key js2-mode-map [(control meta q)] 'my-indent-sexp)
+
   (if (fboundp 'autopair-mode) ; js2-mode has its own auto-pairing
       (setq autopair-dont-activate t))
   (if (featurep 'js2-highlight-vars)
-    (js2-highlight-vars-mode))
-  (message "My JS2 hook"))
+    (js2-highlight-vars-mode)))
 
 (add-hook 'js2-mode-hook 'my-js2-mode-hook)
