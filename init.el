@@ -39,6 +39,15 @@
    (:name yasnippet
        :type git
        :url "https://github.com/capitaomorte/yasnippet.git")
+   (:name swank-js
+       :type git
+       :compile (".")
+       :load-path (".")
+       :url "https://github.com/ivan4th/swank-js.git")
+   (:name slime
+       :info nil
+       :build nil
+       :url "https://github.com/alf/slime.git")
    (:name js2-mode
           :after (lambda ()
                    (autoload 'js2-mode "js2" nil t)))))
