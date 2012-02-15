@@ -16,6 +16,7 @@
 		   (define-key evil-normal-state-map (kbd "<return>") 'evil-next-line)
 		   (define-key evil-normal-state-map (kbd "C-SPC") 'evil-normal-state)
 		   (define-key evil-insert-state-map (kbd "C-SPC") 'evil-normal-state)
+		   (define-key evil-replace-state-map (kbd "C-SPC") 'evil-normal-state)
 		   (define-key evil-insert-state-map (kbd "C-h") 'backward-delete-char-untabify)
 		   (evil-mode 1))
 	  :depends nil)
@@ -33,7 +34,7 @@
    (:name python)
    (:name virtualenv)
    (:name textmate)
-;   (:name flymake-point)
+   (:name flymake-point)
    (:name autopair)
    (:name paredit)
    (:name yasnippet
@@ -144,6 +145,13 @@ by using nxml's indentation rules."
     (indent-region begin (mark))
     (pop-mark))
   (message "Ah, much better!"))
+
+(defun beautify-json ()
+  (interactive)
+  (let ((b (if mark-active (min (point) (mark)) (point-min)))
+        (e (if mark-active (max (point) (mark)) (point-max))))
+    (shell-command-on-region b e
+     "python -mjson.tool" (current-buffer) t)))
 
 (defun open-index (id)
   (interactive "sEnter index-id: ")
