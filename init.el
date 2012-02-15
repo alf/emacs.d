@@ -41,8 +41,6 @@
        :url "https://github.com/capitaomorte/yasnippet.git")
    (:name swank-js
        :type git
-       :compile (".")
-       :load-path (".")
        :url "https://github.com/ivan4th/swank-js.git")
    (:name slime
        :info nil
