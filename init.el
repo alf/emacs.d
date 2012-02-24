@@ -36,6 +36,10 @@
    (:name textmate)
    (:name flymake-point)
    (:name autopair)
+   (:name auto-complete)
+   (:name auto-complete-css)
+   (:name auto-complete-yasnippet)
+   (:name ac-slime)
    (:name paredit)
    (:name yasnippet
        :type git
@@ -47,9 +51,7 @@
        :info nil
        :build nil
        :url "https://github.com/alf/slime.git")
-   (:name js2-mode
-          :after (lambda ()
-                   (autoload 'js2-mode "js2" nil t)))))
+   (:name js-comint)))
 
 (setq my-packages
       (mapcar 'el-get-source-name el-get-sources))
@@ -525,49 +527,19 @@ command and load the decompiled file."
   (set-frame-position (selected-frame) 0 20)
   (set-frame-size (selected-frame) 270 76))
 
-(defun my-js2-indent-function ()
-  (interactive)
-  (save-restriction
-    (widen)
-    (let* ((inhibit-point-motion-hooks t)
-           (parse-status (save-excursion (syntax-ppss (point-at-bol))))
-           (offset (- (current-column) (current-indentation)))
-           (indentation (js--proper-indentation parse-status))
-           node)
+(defun my-js-mode-hook ()
+  (imenu-add-menubar-index)
+  ;; Activate the folding mode
+  (hs-minor-mode t))
 
-      (save-excursion
+(add-hook 'js-mode-hook 'my-js-mode-hook)
 
-        ;; I like to indent case and labels to half of the tab width
-        (back-to-indentation)
-        (if (looking-at "case\\s-")
-            (setq indentation (+ indentation (/ js-indent-level 2))))
-
-        ;; consecutive declarations in a var statement are nice if
-        ;; properly aligned, i.e:
-        ;;
-        ;; var foo = "bar",
-        ;;     bar = "foo";
-        (setq node (js2-node-at-point))
-        (when (and node
-                   (= js2-NAME (js2-node-type node))
-                   (= js2-VAR (js2-node-type (js2-node-parent node))))
-          (setq indentation (+ 4 indentation))))
-
-      (indent-line-to indentation)
-      (when (> offset 0) (forward-char offset)))))
-
-(defun my-js2-mode-hook ()
-  (setq js-indent-level 4)
-  (c-toggle-auto-state 0)
-  (c-toggle-hungry-state 1)
-  (set (make-local-variable 'indent-line-function) 'my-js2-indent-function)
-  (define-key js2-mode-map [(backspace)] 'c-electric-backspace)
-  (define-key js2-mode-map [(control d)] 'c-electric-delete-forward)
-  (define-key js2-mode-map [(control meta q)] 'my-indent-sexp)
-  (if (fboundp 'autopair-mode) ; js2-mode has its own auto-pairing
-      (setq autopair-dont-activate t))
-  (if (featurep 'js2-highlight-vars)
-    (js2-highlight-vars-mode))
-  (message "My JS2 hook"))
-
-(add-hook 'js2-mode-hook 'my-js2-mode-hook)
+(setq inferior-js-mode-hook
+      (lambda ()
+        ;; We like nice colors
+        (ansi-color-for-comint-mode-on)
+       ;; Deal with some prompt nonsense
+        (add-to-list 'comint-preoutput-filter-functions
+                     (lambda (output)
+                       (replace-regexp-in-string ".*1G\.\.\..*5G" "..."
+                     (replace-regexp-in-string ".*1G.*3G" "> " output))))))

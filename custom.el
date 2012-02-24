@@ -33,6 +33,7 @@
  '(ido-use-url-at-point t)
  '(ido-use-virtual-buffers t)
  '(indent-tabs-mode nil)
+ '(inferior-js-program-command "node")
  '(inhibit-startup-screen t)
  '(jabber-account-list (quote (("alfborge@gmail.com" (:network-server . "talk.google.com") (:connection-type . ssl)))))
  '(js-indent-level 4)
