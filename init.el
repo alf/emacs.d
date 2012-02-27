@@ -208,7 +208,7 @@ by using nxml's indentation rules."
 (add-to-list 'compilation-error-regexp-alist-alist
 	     '(mvn "\\[ERROR\\] \\(.+?\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\].*" 1 2 3))
 (add-hook 'dired-load-hook (lambda () (load "dired-x")))
-
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 (if (eq system-type 'darwin)
     (custom-set-variables
      '(ns-command-modifier 'meta)
