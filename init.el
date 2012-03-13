@@ -195,7 +195,7 @@ by using nxml's indentation rules."
   (other-window -1))
 
 (require 'compile)
-(setq compile-search-file "pom.xml")
+(setq compile-search-file nil)
 (defun find-search-file ()
   ;; Search for the pom file traversing up the directory tree.
   (setq dir (expand-file-name default-directory))
@@ -211,12 +211,16 @@ by using nxml's indentation rules."
 
 (setq compilation-process-setup-function 'find-search-file)
 
+(add-hook 'java-mode-hook (lambda ()
+                            (make-local-variable 'compile-search-file)
+                            (setq compile-search-file "pom.xml")))
+
 ;; Add support for mvn compilation errors, taken from
 ;; http://jroller.com/malformed/entry/emacs_maven_2
 (add-to-list 'compilation-error-regexp-alist 'mvn)
-
 (add-to-list 'compilation-error-regexp-alist-alist
-	     '(mvn "\\[ERROR\\] \\(.+?\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\].*" 1 2 3))
+             '(mvn "\\[ERROR\\] \\(.+?\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\].*" 1 2 3))
+
 (add-hook 'dired-load-hook (lambda () (load "dired-x")))
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (if (eq system-type 'darwin)
