@@ -541,3 +541,5 @@ command and load the decompiled file."
                      (lambda (output)
                        (replace-regexp-in-string ".*1G\.\.\..*5G" "..."
                      (replace-regexp-in-string ".*1G.*3G" "> " output))))))
+
+(fset 'yes-or-no-p 'y-or-n-p)
