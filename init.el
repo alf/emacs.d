@@ -34,7 +34,14 @@
 		   (color-theme-solarized-dark)))
    (:name python)
    (:name virtualenv)
-   (:name textmate)
+   (:name textmate
+          :after (lambda ()
+                   ;; I prefer using meta-t for the textmate-stuff
+                   (add-hook 'textmate-mode-hook
+                             '(lambda ()
+                                (add-to-list '*textmate-project-roots* ".bzr")
+                                (define-key *textmate-mode-map* [(ctrl \;)] 'textmate-goto-file)))
+                   (textmate-mode)))
    (:name flymake-point)
    (:name autopair)
    (:name auto-complete)
@@ -265,12 +272,6 @@ by using nxml's indentation rules."
 (define-key global-map [(super O)]  (kbd "Ø"))
 (define-key global-map [(super \')] (kbd "æ"))
 (define-key global-map [(super \")] (kbd "Æ"))
-
-;; I prefer using meta-t for the textmate-stuff
-(add-hook 'textmate-mode-hook
-	  '(lambda ()
-	     (add-to-list '*textmate-project-roots* ".bzr")
-	     (define-key *textmate-mode-map* [(ctrl \;)] 'textmate-goto-file)))
 
 ;; window movement commands inspired by emacs
 (define-key global-map "\C-z" nil)
