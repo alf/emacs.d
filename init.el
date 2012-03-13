@@ -245,8 +245,8 @@ by using nxml's indentation rules."
 (define-key global-map "\C-x\C-d" 'ido-dired)
 
 (add-hook 'ibuffer-mode-hooks '(lambda ()
+				 (define-key ibuffer-mode-map "\C-x\C-f" 'ido-find-file)
 				 (define-key ibuffer-mode-map [(shift return)] 'ibuffer-visit-buffer-other-window)))
-
 
 ;; Full screen is soooo lovely
 (define-key global-map [(meta return)] 'ns-toggle-fullscreen)
