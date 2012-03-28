@@ -43,7 +43,6 @@
                                 (define-key *textmate-mode-map* [(ctrl \;)] 'textmate-goto-file)))
                    (textmate-mode)))
    (:name flymake-point)
-   (:name autopair)
    (:name auto-complete)
    (:name auto-complete-css)
    (:name auto-complete-yasnippet)
@@ -52,13 +51,10 @@
    (:name yasnippet
        :type git
        :url "https://github.com/capitaomorte/yasnippet.git")
-   (:name swank-js
-       :type git
-       :url "https://github.com/ivan4th/swank-js.git")
-   (:name slime
-       :info nil
-       :build nil
-       :url "https://github.com/alf/slime.git")
+   (:name elein)
+   (:name clojure-mode
+          :after (lambda ()
+                   (setq paredit-mode t)))
    (:name js-comint)))
 
 (setq my-packages
@@ -340,6 +336,7 @@ they line up with the line containing the corresponding opening bracket."
 (global-set-key "\C-cb" 'org-iswitchb)
 (global-set-key "\C-cc" 'org-capture)
 
+(setq dropbox-dir (expand-file-name "~/Dropbox"))
 (setq org-directory (file-name-as-directory
 		     (expand-file-name "Org" dropbox-dir)))
 
