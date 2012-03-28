@@ -218,6 +218,9 @@ by using nxml's indentation rules."
 
 (setq compilation-process-setup-function 'find-search-file)
 
+(add-hook 'clojure-mode-hook (lambda ()
+                               (define-key global-map "\C-\M-d" 'down-list)
+                               (setq paredit-mode t)))
 (add-hook 'java-mode-hook (lambda ()
                             (make-local-variable 'compile-search-file)
                             (setq compile-search-file "pom.xml")))
