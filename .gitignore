@@ -12,3 +12,6 @@
 /places
 /secret-settings.el
 /el-get
+/abbrev_defs
+/ac-comphist.dat
+/swank
