@@ -337,6 +337,7 @@ they line up with the line containing the corresponding opening bracket."
 (global-set-key "\C-cb" 'org-iswitchb)
 (global-set-key "\C-cc" 'org-capture)
 
+(setq dropbox-dir (expand-file-name "~/Dropbox"))
 (setq org-directory (file-name-as-directory
 		     (expand-file-name "Org" dropbox-dir)))
 

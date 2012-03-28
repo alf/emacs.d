@@ -1,4 +1,3 @@
-(setq dropbox-dir (expand-file-name "~/Dropbox"))
 (setq gnus-select-method '(nnimap "exchange"
                                   (nnimap-stream network)
                                   (nnimap-address "localhost")
