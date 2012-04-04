@@ -33,6 +33,7 @@
 	  :after (lambda ()
 		   (color-theme-solarized-dark)))
    (:name python)
+   (:name zencoding-mode)
    (:name virtualenv)
    (:name textmate
           :after (lambda ()
