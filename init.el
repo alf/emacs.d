@@ -52,6 +52,7 @@
    (:name auto-complete-yasnippet)
    (:name ac-slime)
    (:name paredit)
+   (:name textile-mode)
    (:name dired-details)
    (:name n3-mode)
    (:name sparql-mode
