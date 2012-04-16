@@ -44,11 +44,34 @@
                                 (define-key *textmate-mode-map* [(ctrl \;)] 'textmate-goto-file)))
                    (textmate-mode)))
    (:name flymake-point)
+   (:name ace-jump-mode
+          :after (lambda ()
+                   (define-key global-map (kbd "C-x x") 'ace-jump-mode)))
    (:name auto-complete)
    (:name auto-complete-css)
    (:name auto-complete-yasnippet)
    (:name ac-slime)
    (:name paredit)
+   (:name dired-details)
+   (:name n3-mode)
+   (:name sparql-mode
+          :type git
+          :url "https://github.com/candera/sparql-mode.git"
+          :after (lambda ()
+                   (autoload 'sparql-mode "sparql-mode.el"
+                     "Major mode for editing SPARQL files" t)
+                   (add-to-list 'auto-mode-alist '("\\.sparql$" . sparql-mode))))
+   (:name monky
+       :type git
+       :url "https://github.com/ananthakumaran/monky.git")
+   (:name org-jira
+       :type git
+       :url "https://github.com/baohaojun/org-jira.git"
+       :after (lambda ()
+                (add-hook 'org-jira-mode-hook
+                          '(lambda ()
+                             (setq jiralib-url "https://jira.bouvet.no")
+                             (define-key org-jira-entry-mode-map "\C-cc" 'org-capture)))))
    (:name yasnippet
        :type git
        :url "https://github.com/capitaomorte/yasnippet.git")
