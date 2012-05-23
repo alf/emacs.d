@@ -24,14 +24,17 @@
    (:name smex				; a better (ido like) M-x
 	  :after (lambda ()
 		   (setq smex-save-file "~/.emacs.d/.smex-items")
-		   (global-set-key (kbd "M-x") 'smex)
-		   (global-set-key (kbd "M-X") 'smex-major-mode-commands)))
+		   (define-key global-map (kbd "M-x") 'smex)
+		   (define-key global-map (kbd "M-X") 'smex-major-mode-commands)))
    (:name magit				; git meet emacs, and a binding
 	  :after (lambda ()
-		   (global-set-key (kbd "C-x C-z") 'magit-status)))
+		   (define-key global-map (kbd "C-x C-z") 'magit-status)))
+   (:name monky
+       :type git
+       :url "https://github.com/ananthakumaran/monky.git")
    (:name color-theme-solarized
 	  :after (lambda ()
-		   (color-theme-solarized-dark)))
+		   (color-theme-solarized-light)))
    (:name python)
    (:name zencoding-mode)
    (:name virtualenv)
@@ -41,6 +44,7 @@
                    (add-hook 'textmate-mode-hook
                              '(lambda ()
                                 (add-to-list '*textmate-project-roots* ".bzr")
+                                (add-to-list '*textmate-project-roots* "pom.xml")
                                 (define-key *textmate-mode-map* [(ctrl \;)] 'textmate-goto-file)))
                    (textmate-mode)))
    (:name flymake-point)
@@ -50,6 +54,8 @@
    (:name auto-complete)
    (:name auto-complete-css)
    (:name auto-complete-yasnippet)
+   (:name vcl-mode
+          :url "https://www.varnish-cache.org/svn/trunk/varnish-tools/emacs/vcl-mode.el")
    (:name ac-slime)
    (:name paredit)
    (:name textile-mode)
@@ -62,9 +68,6 @@
                    (autoload 'sparql-mode "sparql-mode.el"
                      "Major mode for editing SPARQL files" t)
                    (add-to-list 'auto-mode-alist '("\\.sparql$" . sparql-mode))))
-   (:name monky
-       :type git
-       :url "https://github.com/ananthakumaran/monky.git")
    (:name org-jira
        :type git
        :url "https://github.com/baohaojun/org-jira.git"
@@ -252,7 +255,16 @@ by using nxml's indentation rules."
 (add-to-list 'compilation-error-regexp-alist-alist
              '(mvn "\\[ERROR\\] \\(.+?\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\].*" 1 2 3))
 
-(add-hook 'dired-load-hook (lambda () (load "dired-x")))
+(defun dired-open-mac ()
+  (interactive)
+  (let ((file-name (dired-get-file-for-visit)))
+    (if (file-exists-p file-name)
+        (call-process "/usr/bin/open" nil 0 nil file-name))))
+
+(add-hook 'dired-load-hook (lambda ()
+                             (load "dired-x")
+                             (define-key dired-mode-map "o" 'dired-open-mac)))
+
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (if (eq system-type 'darwin)
     (custom-set-variables
@@ -270,6 +282,9 @@ by using nxml's indentation rules."
 (define-key global-map [(f9)] 'recompile)
 (define-key global-map [(f10)] 'matportalen-build)
 (define-key global-map [(f11)] 'matportalen-search-templates)
+
+;; since I don't have a super-key use Ctrl-/ for comment/uncomment
+(define-key global-map [(ctrl /)] 'comment-or-uncomment-region-or-line)
 
 ;; upgrade a few builtins
 (define-key global-map "\C-x\C-b" 'ibuffer)
@@ -356,10 +371,10 @@ they line up with the line containing the corresponding opening bracket."
 
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
-(global-set-key "\C-cc" 'org-capture)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-cb" 'org-iswitchb)
+(define-key global-map "\C-cc" 'org-capture)
 
 (setq dropbox-dir (expand-file-name "~/Dropbox"))
 (setq org-directory (file-name-as-directory
@@ -569,3 +584,17 @@ command and load the decompiled file."
                      (replace-regexp-in-string ".*1G.*3G" "> " output))))))
 
 (fset 'yes-or-no-p 'y-or-n-p)
+
+;; Add further minor-modes to be enabled by semantic-mode.
+;; See doc-string of `semantic-default-submodes' for other things
+;; you can use here.
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)
+
+;; Enable Semantic
+(semantic-mode 1)
+  (defun create-tags (dir-name)
+     "Create tags file."
+     (interactive "DDirectory: ")
+     (eshell-command
+      (format "find %s -type f -name \"*.java\" | etags --append -" dir-name)))
