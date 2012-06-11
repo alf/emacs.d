@@ -53,6 +53,7 @@
                    (define-key global-map (kbd "C-x x") 'ace-jump-mode)))
    (:name auto-complete)
    (:name auto-complete-css)
+   (:name auto-complete-etags)
    (:name auto-complete-yasnippet)
    (:name vcl-mode
           :url "https://www.varnish-cache.org/svn/trunk/varnish-tools/emacs/vcl-mode.el")
@@ -61,6 +62,14 @@
    (:name textile-mode)
    (:name dired-details)
    (:name n3-mode)
+   (:name graphviz-dot-mode
+          :after (lambda ()
+                   (setq compilation-read-command nil)
+                   (define-key graphviz-dot-mode-map "\C-cc"
+                     '(lambda ()
+                        (interactive)
+                        (compile compile-command)
+                        (graphviz-dot-preview)))
    (:name sparql-mode
           :type git
           :url "https://github.com/candera/sparql-mode.git"
