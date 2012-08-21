@@ -19,7 +19,7 @@
 		   (define-key evil-insert-state-map (kbd "C-SPC") 'evil-normal-state)
 		   (define-key evil-replace-state-map (kbd "C-SPC") 'evil-normal-state)
 		   (define-key evil-insert-state-map (kbd "C-h") 'backward-delete-char-untabify)
-		   (evil-mode 1))
+		   (evil-mode 0))
 	  :depends nil)
    (:name smex				; a better (ido like) M-x
 	  :after (lambda ()
@@ -51,6 +51,12 @@
    (:name ace-jump-mode
           :after (lambda ()
                    (define-key global-map (kbd "C-x x") 'ace-jump-mode)))
+   (:name expand-region
+          :type git
+          :url "https://github.com/magnars/expand-region.el"
+          :after (lambda ()
+                   (define-key global-map (kbd "C-=") 'er/expand-region)
+                   (define-key global-map (kbd "C-M-=") 'er/contract-region)))
    (:name auto-complete)
    (:name auto-complete-css)
    (:name auto-complete-etags)
@@ -64,12 +70,9 @@
    (:name n3-mode)
    (:name graphviz-dot-mode
           :after (lambda ()
-                   (setq compilation-read-command nil)
-                   (define-key graphviz-dot-mode-map "\C-cc"
-                     '(lambda ()
-                        (interactive)
-                        (compile compile-command)
-                        (graphviz-dot-preview)))
+                (add-hook 'graphviz-dot-mode-hook
+                          '(lambda ()
+			     (setq compilation-read-command nil)))))
    (:name sparql-mode
           :type git
           :url "https://github.com/candera/sparql-mode.git"
@@ -85,6 +88,19 @@
                           '(lambda ()
                              (setq jiralib-url "https://jira.bouvet.no")
                              (define-key org-jira-entry-mode-map "\C-cc" 'org-capture)))))
+   (:name emacs-eclim
+       :type git
+       :url "https://github.com/senny/emacs-eclim.git"
+       :after (lambda ()
+                (require 'eclim)
+                (require 'eclimd)
+                (require 'ac-emacs-eclim-source)
+                (setq eclim-auto-save t)
+                (global-eclim-mode)
+
+                (add-hook 'eclim-mode-hook (lambda ()
+                                             (add-to-list 'ac-sources 'ac-source-emacs-eclim)
+                                             (add-to-list 'ac-sources 'ac-source-emacs-eclim-c-dot)))))
    (:name yasnippet
        :type git
        :url "https://github.com/capitaomorte/yasnippet.git")
@@ -251,6 +267,9 @@ by using nxml's indentation rules."
 
 (setq compilation-process-setup-function 'find-search-file)
 
+(add-hook 'emacs-lisp-mode-hook (lambda ()
+                               (setq paredit-mode t)))
+
 (add-hook 'clojure-mode-hook (lambda ()
                                (define-key global-map "\C-\M-d" 'down-list)
                                (setq paredit-mode t)))
@@ -281,11 +300,6 @@ by using nxml's indentation rules."
      '(ns-right-command-modifier 'meta)
      '(ns-option-modifier nil)
      '(ns-right-option-modifier nil)))
-
-;; Setup expansion
-(define-key global-map "\M-/" 'dabbrev-expand)
-(define-key read-expression-map [(tab)] 'hippie-expand)
-(define-key read-expression-map [(shift tab)] 'unexpand)
 
 ;; quick access to stuff I use a lot
 (define-key global-map [(f9)] 'recompile)
@@ -602,8 +616,15 @@ command and load the decompiled file."
 
 ;; Enable Semantic
 (semantic-mode 1)
-  (defun create-tags (dir-name)
-     "Create tags file."
-     (interactive "DDirectory: ")
-     (eshell-command
-      (format "find %s -type f -name \"*.java\" | etags --append -" dir-name)))
+
+(defun create-tags (dir-name)
+  "Create tags file."
+  (interactive "DDirectory: ")
+  (eshell-command
+   (format "find %s -type f -name \"*.java\" | /usr/local/bin/etags --append -" dir-name)))
+
+(define-key ac-mode-map (kbd "M-/") 'auto-complete)
+
+;; Add ac-complete-filename to ac-sources for all buffers
+(defun ac-common-setup ()
+  (add-to-list 'ac-sources 'ac-complete-filename))
