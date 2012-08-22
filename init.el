@@ -1,124 +1,20 @@
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
-(add-to-list 'load-path (expand-file-name "el-get/el-get" user-emacs-directory))
 
-(unless (require 'el-get nil t)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-    (end-of-buffer)
-    (eval-print-last-sexp)))
+; Keep this at the top in case I introduce an error in my config
+; further down
+(if (eq system-type 'darwin)
+    (custom-set-variables
+     '(ns-command-modifier 'meta)
+     '(ns-right-command-modifier 'meta)
+     '(ns-option-modifier nil)
+     '(ns-right-option-modifier nil)))
 
-;; set local recipes
-(setq
- el-get-sources
- '((:name evil
-	  :after (lambda ()
-                   (setcdr evil-insert-state-map nil)
-		   (define-key evil-normal-state-map (kbd "<return>") 'evil-next-line)
-		   (define-key evil-normal-state-map (kbd "C-SPC") 'evil-normal-state)
-		   (define-key evil-insert-state-map (kbd "C-SPC") 'evil-normal-state)
-		   (define-key evil-replace-state-map (kbd "C-SPC") 'evil-normal-state)
-		   (define-key evil-insert-state-map (kbd "C-h") 'backward-delete-char-untabify)
-		   (evil-mode 0))
-	  :depends nil)
-   (:name smex				; a better (ido like) M-x
-	  :after (lambda ()
-		   (setq smex-save-file "~/.emacs.d/.smex-items")
-		   (define-key global-map (kbd "M-x") 'smex)
-		   (define-key global-map (kbd "M-X") 'smex-major-mode-commands)))
-   (:name magit				; git meet emacs, and a binding
-	  :after (lambda ()
-		   (define-key global-map (kbd "C-x C-z") 'magit-status)))
-   (:name monky
-       :type git
-       :url "https://github.com/ananthakumaran/monky.git")
-   (:name color-theme-solarized
-	  :after (lambda ()
-		   (color-theme-solarized-light)))
-   (:name python)
-   (:name zencoding-mode)
-   (:name virtualenv)
-   (:name textmate
-          :after (lambda ()
-                   ;; I prefer using meta-t for the textmate-stuff
-                   (add-hook 'textmate-mode-hook
-                             '(lambda ()
-                                (add-to-list '*textmate-project-roots* ".bzr")
-                                (add-to-list '*textmate-project-roots* "pom.xml")
-                                (define-key *textmate-mode-map* [(ctrl \;)] 'textmate-goto-file)))
-                   (textmate-mode)))
-   (:name flymake-point)
-   (:name ace-jump-mode
-          :after (lambda ()
-                   (define-key global-map (kbd "C-x x") 'ace-jump-mode)))
-   (:name expand-region
-          :type git
-          :url "https://github.com/magnars/expand-region.el"
-          :after (lambda ()
-                   (define-key global-map (kbd "C-=") 'er/expand-region)
-                   (define-key global-map (kbd "C-M-=") 'er/contract-region)))
-   (:name auto-complete)
-   (:name auto-complete-css)
-   (:name auto-complete-etags)
-   (:name auto-complete-yasnippet)
-   (:name vcl-mode
-          :url "https://www.varnish-cache.org/svn/trunk/varnish-tools/emacs/vcl-mode.el")
-   (:name ac-slime)
-   (:name paredit)
-   (:name textile-mode)
-   (:name dired-details)
-   (:name n3-mode)
-   (:name graphviz-dot-mode
-          :after (lambda ()
-                (add-hook 'graphviz-dot-mode-hook
-                          '(lambda ()
-			     (setq compilation-read-command nil)))))
-   (:name sparql-mode
-          :type git
-          :url "https://github.com/candera/sparql-mode.git"
-          :after (lambda ()
-                   (autoload 'sparql-mode "sparql-mode.el"
-                     "Major mode for editing SPARQL files" t)
-                   (add-to-list 'auto-mode-alist '("\\.sparql$" . sparql-mode))))
-   (:name org-jira
-       :type git
-       :url "https://github.com/baohaojun/org-jira.git"
-       :after (lambda ()
-                (add-hook 'org-jira-mode-hook
-                          '(lambda ()
-                             (setq jiralib-url "https://jira.bouvet.no")
-                             (define-key org-jira-entry-mode-map "\C-cc" 'org-capture)))))
-   (:name emacs-eclim
-       :type git
-       :url "https://github.com/senny/emacs-eclim.git"
-       :after (lambda ()
-                (require 'eclim)
-                (require 'eclimd)
-                (require 'ac-emacs-eclim-source)
-                (setq eclim-auto-save t)
-                (global-eclim-mode)
+(defun alf-load-if-exists (filename)
+  (when (file-exists-p filename) (load filename)))
 
-                (add-hook 'eclim-mode-hook (lambda ()
-                                             (add-to-list 'ac-sources 'ac-source-emacs-eclim)
-                                             (add-to-list 'ac-sources 'ac-source-emacs-eclim-c-dot)))))
-   (:name yasnippet
-       :type git
-       :url "https://github.com/capitaomorte/yasnippet.git")
-   (:name elein)
-   (:name clojure-mode
-          :after (lambda ()
-                   (setq paredit-mode t)))
-   (:name js-comint)))
-
-(setq my-packages
-      (mapcar 'el-get-source-name el-get-sources))
-
-(el-get 'sync my-packages)
-
-(let ((alf-system-file (concat user-emacs-directory system-name ".el"))
-      (alf-secret-file (concat user-emacs-directory "secret-settings.el")))
-  (when (file-exists-p alf-system-file) (load alf-system-file))
-  (when (file-exists-p alf-secret-file) (load alf-secret-file)))
+(alf-load-if-exists (concat user-emacs-directory system-name ".el"))
+(alf-load-if-exists (concat user-emacs-directory "secret-settings.el"))
+(alf-load-if-exists (concat user-emacs-directory "packages.el"))
 
 (put 'ido-exit-minibuffer 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
@@ -267,6 +163,8 @@ by using nxml's indentation rules."
 
 (setq compilation-process-setup-function 'find-search-file)
 
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 (add-hook 'emacs-lisp-mode-hook (lambda ()
                                (setq paredit-mode t)))
 
@@ -292,14 +190,6 @@ by using nxml's indentation rules."
 (add-hook 'dired-load-hook (lambda ()
                              (load "dired-x")
                              (define-key dired-mode-map "o" 'dired-open-mac)))
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(if (eq system-type 'darwin)
-    (custom-set-variables
-     '(ns-command-modifier 'meta)
-     '(ns-right-command-modifier 'meta)
-     '(ns-option-modifier nil)
-     '(ns-right-option-modifier nil)))
 
 ;; quick access to stuff I use a lot
 (define-key global-map [(f9)] 'recompile)
