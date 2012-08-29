@@ -59,6 +59,7 @@
    (:name textile-mode)
    (:name dired-details)
    (:name n3-mode)
+   (:name csharp-mode)
    (:name graphviz-dot-mode
           :after (progn
                    (add-hook 'graphviz-dot-mode-hook
