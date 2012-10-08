@@ -52,6 +52,7 @@
  '(org-agenda-skip-scheduled-if-done t)
  '(org-agenda-start-on-weekday nil)
  '(org-deadline-warning-days 14)
+ '(reb-re-syntax (quote string))
  '(savehist-mode t)
  '(scroll-bar-mode nil)
  '(send-mail-function (quote smtpmail-send-it))

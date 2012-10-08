@@ -60,6 +60,8 @@
    (:name dired-details)
    (:name n3-mode)
    (:name csharp-mode)
+   (:name wgrep)
+   (:name multiple-cursors)
    (:name graphviz-dot-mode
           :after (progn
                    (add-hook 'graphviz-dot-mode-hook

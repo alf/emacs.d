@@ -261,7 +261,7 @@ they line up with the line containing the corresponding opening bracket."
             (setq ad-return-value (current-indentation)))
         ad-do-it))))
 
-(ad-activate 'python-calculate-indentation)
+;(ad-activate 'python-calculate-indentation)
 
 (when (load "flymake" t)
   (require 'tramp-cmds)
@@ -518,3 +518,17 @@ command and load the decompiled file."
 ;; Add ac-complete-filename to ac-sources for all buffers
 (defun ac-common-setup ()
   (add-to-list 'ac-sources 'ac-complete-filename))
+
+(add-to-list 'eclim--file-coding-system-mapping '("iso-latin-1-dos" . "iso-8859-1"))
+
+(load "~/.ercpass")
+(require 'erc-services)
+(erc-services-mode 1)
+(setq erc-prompt-for-nickserv-password nil)
+(setq erc-nickserv-passwords `((freenode (("alfborge" . ,freenode-alfborge-pass)))))
+
+(defun alf-unhex-region
+  (interactive)
+  (let ((hexxed-string (buffer-substring-no-properties (region-beginning) (region-end))))
+    (delete-region (region-beginning) (region-end))
+    (insert (url-unhex-string hexxed-string))))
