@@ -527,8 +527,26 @@ command and load the decompiled file."
 (setq erc-prompt-for-nickserv-password nil)
 (setq erc-nickserv-passwords `((freenode (("alfborge" . ,freenode-alfborge-pass)))))
 
-(defun alf-unhex-region
+(defun alf/unhex-region ()
   (interactive)
   (let ((hexxed-string (buffer-substring-no-properties (region-beginning) (region-end))))
     (delete-region (region-beginning) (region-end))
     (insert (url-unhex-string hexxed-string))))
+
+(defun alf/hex-region ()
+  (interactive)
+  (let ((unhexxed-string (buffer-substring-no-properties (region-beginning) (region-end))))
+    (delete-region (region-beginning) (region-end))
+    (insert (replace-in-string (url-hexify-string unhexxed-string) "%0a" "\n"))))
+
+(defun reb-query-replace (to-string)
+  "Replace current RE from point with `query-replace-regexp'."
+  (interactive
+   (progn (barf-if-buffer-read-only)
+          (list (query-replace-read-to (reb-target-binding reb-regexp)
+                                       "Query replace"  t))))
+  (with-current-buffer reb-target-buffer
+    (query-replace-regexp (reb-target-binding reb-regexp) to-string)))
+
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)

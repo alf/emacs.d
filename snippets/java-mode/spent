@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: spent
+# key: spent
+# --
+long spent = System.nanoTime() - start;
+log.trace("${action} in {} nanoseconds", spent);
