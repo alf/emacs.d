@@ -1,3 +1,4 @@
+
 (add-to-list 'load-path (expand-file-name "el-get/el-get" user-emacs-directory))
 
 (unless (require 'el-get nil t)
@@ -19,6 +20,8 @@
    (:name magit                        ; git meet emacs, and a binding
 	  :after (progn
 		   (define-key global-map (kbd "C-x C-z") 'magit-status)))
+   (:name wanderlust)
+   (:name emacs-w3m)
    (:name monky
           :type git
           :url "https://github.com/ananthakumaran/monky.git")
@@ -74,6 +77,7 @@
                    (autoload 'sparql-mode "sparql-mode.el"
                      "Major mode for editing SPARQL files" t)
                    (add-to-list 'auto-mode-alist '("\\.sparql$" . sparql-mode))))
+   (:name org-mode)
    (:name org-jira
           :type git
           :url "https://github.com/baohaojun/org-jira.git"
@@ -101,7 +105,7 @@
    (:name elein)
    (:name clojure-mode
           :after (progn
-                   (setq paredit-mode t)))
+                   (enable-paredit-mode)))
    (:name nrepl)
    (:name js-comint)))
 

@@ -12,15 +12,15 @@
 (defun alf-load-if-exists (filename)
   (when (file-exists-p filename) (load filename)))
 
-(alf-load-if-exists (concat user-emacs-directory system-name ".el"))
-(alf-load-if-exists (concat user-emacs-directory "secret-settings.el"))
-(alf-load-if-exists (concat user-emacs-directory "packages.el"))
-
 (put 'ido-exit-minibuffer 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
+
+(alf-load-if-exists (concat user-emacs-directory "packages.el"))
+(alf-load-if-exists (concat user-emacs-directory system-name ".el"))
+(alf-load-if-exists (concat user-emacs-directory "secret-settings.el"))
 
 (require 'flymake)
 
@@ -138,6 +138,13 @@ by using nxml's indentation rules."
   (re-search-forward "^$" nil 'move)
   (delete-region (point-min) (1+ (point))))
 
+(defun alf/switch-dictionary ()
+  (interactive)
+  (let* ((dic ispell-current-dictionary)
+    	 (change (if (string= dic "norsk") "english" "norsk")))
+    (ispell-change-dictionary change)
+    (message "Dictionary switched from %s to %s" dic change)))
+
 (defun alf/previous-frame ()
   (interactive)
   (other-frame -1))
@@ -166,11 +173,11 @@ by using nxml's indentation rules."
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (add-hook 'emacs-lisp-mode-hook (lambda ()
-                               (setq paredit-mode t)))
+                               (enable-paredit-mode)))
 
 (add-hook 'clojure-mode-hook (lambda ()
                                (define-key global-map "\C-\M-d" 'down-list)
-                               (setq paredit-mode t)))
+                               (enable-paredit-mode)))
 (add-hook 'java-mode-hook (lambda ()
                             (make-local-variable 'compile-search-file)
                             (setq compile-search-file "pom.xml")))
@@ -190,11 +197,6 @@ by using nxml's indentation rules."
 (add-hook 'dired-load-hook (lambda ()
                              (load "dired-x")
                              (define-key dired-mode-map "o" 'dired-open-mac)))
-
-;; quick access to stuff I use a lot
-(define-key global-map [(f9)] 'recompile)
-(define-key global-map [(f10)] 'matportalen-build)
-(define-key global-map [(f11)] 'matportalen-search-templates)
 
 ;; since I don't have a super-key use Ctrl-/ for comment/uncomment
 (define-key global-map [(ctrl /)] 'comment-or-uncomment-region-or-line)
@@ -280,96 +282,42 @@ they line up with the line containing the corresponding opening bracket."
   (add-to-list 'flymake-allowed-file-name-masks
                '("\\.py\\'" flymake-check-init)))
 
-(require 'org-install)
-
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-(define-key global-map "\C-cb" 'org-iswitchb)
-(define-key global-map "\C-cc" 'org-capture)
-
 (setq dropbox-dir (expand-file-name "~/Dropbox"))
 (setq org-directory (file-name-as-directory
 		     (expand-file-name "Org" dropbox-dir)))
 
 (let ((default-directory org-directory))
+  (load (concat user-emacs-directory "org-mode.el"))
+  (setq org-directory (file-name-as-directory
+                       (expand-file-name "Org" dropbox-dir)))
+
   (setq org-agenda-files
 	(mapcar 'expand-file-name
-		(list "inbox.org"
+		(list "refile.org"
+                      "todo.org"
+                      "personal.org"
+                      "journal.org"
 		      "projects")))
 
+  (setq org-default-notes-file (expand-file-name "refile.org"))
+  (setq bh/organization-task-id "11F0AFCD-E153-4C75-B812-017523C75220")
 
   (setq org-capture-templates
-	`(("t" "Inbox" entry
-	   (file ,(expand-file-name "inbox.org"))
-	   "* TODO %?\n %i\n")
-	  ("j" "Journal" entry
-	   (file+datetree ,(expand-file-name "journal.org"))
-	   "* %?\nEntered on %U\n  %i")
-	  ("b" "Blog idea" entry
-	   (file+headline ,(expand-file-name "blog-ideas.org") "Blog ideas")
-	   "** %?\n%u\n"))))
+        `(("t" "todo" entry (file ,(expand-file-name "refile.org"))
+               "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+              ("r" "respond" entry (file ,(expand-file-name "refile.org"))
+               "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
+              ("n" "note" entry (file ,(expand-file-name "refile.org"))
+               "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+              ("j" "Journal" entry (file+datetree ,(expand-file-name "journal.org"))
+               "* %?\n%U\n" :clock-in t :clock-resume t)
+              ("p" "Phone call" entry (file ,(expand-file-name "refile.org"))
+               "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
+              ("h" "Habit" entry (file ,(expand-file-name "refile.org"))
+               "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n")
+              ("b" "Blog idea" entry (file+headline ,(expand-file-name "blog-ideas.org") "Blog ideas")
+               "** %?\n%u\n"))))
 
-(setq org-timer-default-timer 25)
-
-(add-hook 'org-mode-hook
-	  '(lambda()
-	     (setq fill-column 78)))
-
-
-;; From http://doc.norang.ca/org-mode.html#Clocking
-;; Resume clocking tasks when emacs is restarted
-(org-clock-persistence-insinuate)
-;; Yes it's long... but more is better ;)
-(setq org-clock-history-length 28)
-;; Resume clocking task on clock-in if the clock is open
-(setq org-clock-in-resume t)
-;; Change task state to NEXT when clocking in
-(setq org-clock-in-switch-to-state (quote bh/clock-in-to-started))
-;; Separate drawers for clocking and logs
-(setq org-drawers '("PROPERTIES" "LOGBOOK" "CLOCK"))
-(setq org-startup-folded "content")
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "STARTED(s!/!)" "WAITING(w@/!)" "DELEGATED(e@/!)" "|" "DONE(d@/!)" "DEFERRED" "CANCELLED(c@)")))
-
-;; Save clock data in the CLOCK drawer and state changes and notes in the LOGBOOK drawer
-(setq org-clock-into-drawer "CLOCK")
-(setq org-log-into-drawer "LOGBOOK")
-;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
-(setq org-clock-out-remove-zero-time-clocks t)
-;; Clock out when moving task to a done state
-(setq org-clock-out-when-done t)
-;; Save the running clock and all clock history when exiting Emacs, load it on startup
-(setq org-clock-persist (quote history))
-;; Enable auto clock resolution for finding open clocks
-(setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
-;; Include current clocking task in clock reports
-(setq org-clock-report-include-clocking-task t)
-
-(setq bh/keep-clock-running nil)
-
-(defun bh/clock-in ()
-  (interactive)
-  (setq bh/keep-clock-running t)
-  (org-agenda nil "c"))
-
-(defun bh/clock-out ()
-  (interactive)
-  (setq bh/keep-clock-running nil)
-  (when (org-clock-is-active)
-    (org-clock-out)))
-
-(defun bh/clock-in-default-task ()
-  (save-excursion
-    (org-with-point-at org-clock-default-task
-      (org-clock-in))))
-
-(defun bh/clock-out-maybe ()
-  (when (and bh/keep-clock-running (not org-clock-clocking-in) (marker-buffer org-clock-default-task))
-    (bh/clock-in-default-task)))
-
-(add-hook 'org-clock-out-hook 'bh/clock-out-maybe 'append)
 ;; $Revision: 1.1.1.1 $
 
 ;; Copyright (C) 2000 by Ingo Koch
@@ -472,6 +420,11 @@ command and load the decompiled file."
      (cond ((string= (substring file -6) ".class")
 	    (progn (jdc-buffer) (java-mode)))))))
 
+(defun decompile-region ()
+  (interactive)
+  (let ((command (concat jdc-command jdc-parameter " -p /dev/stdin")))
+    (shell-command-on-region (region-beginning) (region-end) command (current-buffer) t)))
+
 (provide 'javadecomp)
 
 (defun maximize-frame ()
@@ -550,3 +503,26 @@ command and load the decompiled file."
 
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+
+(setq alf/brightstar-subject-keyword
+      `(("<li> *{{\\([^}]*\\)"
+         (0 (progn (compose-region (match-beginning 1)
+                                   (match-end 1) "\u2026")
+                   nil)))))
+
+(defun alf/hide-subject ()
+  (interactive)
+  (font-lock-add-keywords major-mode alf/brightstar-subject-keyword)
+  (font-lock-refresh-defaults))
+
+(defun alf/show-subject ()
+  (interactive)
+  (font-lock-remove-keywords major-mode alf/brightstar-subject-keyword)
+  (font-lock-refresh-defaults))
+
+(defun alf/magit-log-folder (dir-name)
+  (interactive "DDirectory :")
+  (setq magit-refresh-args `("HEAD" oneline ("HEAD" "--" ,dir-name)))
+  (magit-refresh))
+
+(setq dired-dwim-target t)
