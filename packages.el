@@ -19,6 +19,7 @@
 		   (define-key global-map (kbd "M-X") 'smex-major-mode-commands)))
    (:name magit                        ; git meet emacs, and a binding
 	  :after (progn
+                   (require 'magit)
 		   (define-key global-map (kbd "C-x C-z") 'magit-status)))
    (:name wanderlust)
    (:name emacs-w3m)
@@ -103,9 +104,7 @@
           :type git
           :url "https://github.com/capitaomorte/yasnippet.git")
    (:name elein)
-   (:name clojure-mode
-          :after (progn
-                   (enable-paredit-mode)))
+   (:name clojure-mode)
    (:name nrepl)
    (:name js-comint)))
 
