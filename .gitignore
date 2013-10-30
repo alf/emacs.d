@@ -17,3 +17,5 @@
 /swank
 /semanticdb
 /ede-projects.el
+/javadoc-cache
+/projectile-bookmarks.eld

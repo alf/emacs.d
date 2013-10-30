@@ -17,6 +17,7 @@
 		   (setq smex-save-file "~/.emacs.d/.smex-items")
 		   (define-key global-map (kbd "M-x") 'smex)
 		   (define-key global-map (kbd "M-X") 'smex-major-mode-commands)))
+   (:name confluence-el)
    (:name magit                        ; git meet emacs, and a binding
 	  :after (progn
                    (require 'magit)
@@ -26,9 +27,10 @@
    (:name monky
           :type git
           :url "https://github.com/ananthakumaran/monky.git")
-   (:name color-theme-solarized
-	  :after (progn
-		   (color-theme-solarized-light)))
+   (:name javadoc-lookup
+          :type git
+          :url "https://github.com/skeeto/javadoc-lookup.git")
+   (:name color-theme-solarized)
    (:name python)
    (:name zencoding-mode)
    (:name virtualenv)
@@ -73,7 +75,7 @@
                                 (setq compilation-read-command nil)))))
    (:name sparql-mode
           :type git
-          :url "https://github.com/candera/sparql-mode.git"
+          :url "https://github.com/ljos/sparql-mode.git"
           :after (progn
                    (autoload 'sparql-mode "sparql-mode.el"
                      "Major mode for editing SPARQL files" t)
@@ -105,7 +107,6 @@
           :url "https://github.com/capitaomorte/yasnippet.git")
    (:name elein)
    (:name clojure-mode)
-   (:name nrepl)
    (:name js-comint)))
 
 (setq my-packages

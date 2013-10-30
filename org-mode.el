@@ -170,7 +170,7 @@
                 (tags "REFILE"
                       ((org-agenda-overriding-header "Tasks to Refile")
                        (org-tags-match-list-sublevels nil)))
-                (tags-todo "-CANCELLED/!"
+                (tags-todo "-HOLD-CANCELLED/!"
                            ((org-agenda-overriding-header "Stuck Projects")
                             (org-agenda-skip-function 'bh/skip-non-stuck-projects)
                             (org-agenda-sorting-strategy
@@ -180,7 +180,7 @@
                             (org-agenda-skip-function 'bh/skip-non-projects)
                             (org-agenda-sorting-strategy
                              '(priority-down category-keep))))
-                (tags-todo "-CANCELLED/!NEXT"
+                (tags-todo "-HOLD-CANCELLED/!NEXT"
                            ((org-agenda-overriding-header "Project Next Tasks")
                             (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
                             (org-tags-match-list-sublevels t)
@@ -197,12 +197,17 @@
                             (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
                             (org-agenda-sorting-strategy
                              '(category-keep))))
-                (tags-todo "-CANCELLED+WAITING/!"
+                (tags-todo "-HOLD-CANCELLED+WAITING/!"
                            ((org-agenda-overriding-header "Waiting and Postponed Tasks")
                             (org-agenda-skip-function 'bh/skip-stuck-projects)
                             (org-tags-match-list-sublevels nil)
                             (org-agenda-todo-ignore-scheduled 'future)
                             (org-agenda-todo-ignore-deadlines 'future)))
+                (todo "HOLD"
+                           ((org-agenda-overriding-header "Held Projects")
+
+                            (org-agenda-sorting-strategy
+                             '(priority-down category-keep))))
                 (tags "-REFILE/"
                       ((org-agenda-overriding-header "Tasks to Archive")
                        (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
@@ -233,7 +238,7 @@
                 (org-agenda-skip-function 'bh/skip-non-projects)
                 (org-agenda-sorting-strategy
                  '(category-keep))))
-              ("w" "Waiting Tasks" tags-todo "-CANCELLED+WAITING/!"
+              ("w" "Waiting Tasks" tags-todo "-HOLD-CANCELLED+WAITING/!"
                ((org-agenda-overriding-header "Waiting and Postponed tasks"))
                (org-tags-match-list-sublevels nil))
               ("A" "Tasks to Archive" tags "-REFILE/"

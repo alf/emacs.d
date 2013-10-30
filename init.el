@@ -425,6 +425,12 @@ command and load the decompiled file."
   (let ((command (concat jdc-command jdc-parameter " -p /dev/stdin")))
     (shell-command-on-region (region-beginning) (region-end) command (current-buffer) t)))
 
+(defun decompile-buffer ()
+  (interactive)
+  (beginning-of-buffer)
+  (set-mark (point-max))
+  (decompile-region))
+
 (provide 'javadecomp)
 
 (defun maximize-frame ()
@@ -522,7 +528,29 @@ command and load the decompiled file."
 
 (defun alf/magit-log-folder (dir-name)
   (interactive "DDirectory :")
-  (setq magit-refresh-args `("HEAD" oneline ("HEAD" "--" ,dir-name)))
+  (setq magit-refresh-args `(oneline "HEAD" ("--graph" "--" ,dir-name)))
   (magit-refresh))
 
 (setq dired-dwim-target t)
+(put 'set-goal-column 'disabled nil)
+
+(if (featurep 'ns)
+    (progn
+      (defun ns-raise-emacs ()
+        "Raise Emacs."
+        (ns-do-applescript "tell application \"Emacs\" to activate"))
+
+      (if (display-graphic-p)
+          (progn
+            (add-hook 'server-visit-hook 'ns-raise-emacs)
+            (add-hook 'before-make-frame-hook 'ns-raise-emacs)
+            (ns-raise-emacs)))))
+
+(defun ns-toggle-fullscreen (&optional f)
+  (interactive)
+  (let ((current-value (frame-parameter nil 'fullscreen)))
+    (set-frame-parameter nil 'fullscreen
+                         (if (equal 'fullboth current-value)
+                             (if (boundp 'old-fullscreen) old-fullscreen nil)
+                           (progn (setq old-fullscreen current-value)
+                                  'fullboth)))))
