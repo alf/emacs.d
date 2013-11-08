@@ -554,3 +554,10 @@ command and load the decompiled file."
                              (if (boundp 'old-fullscreen) old-fullscreen nil)
                            (progn (setq old-fullscreen current-value)
                                   'fullboth)))))
+
+(defun alf/reflow-sparql ()
+  (interactive)
+  (save-excursion
+    (replace-string "}" "\n}" nil (region-beginning) (region-end))
+    (replace-string "{" "\n{\n" nil (region-beginning) (region-end))
+    (indent-region (region-beginning) (region-end))))
