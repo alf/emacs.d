@@ -42,3 +42,4 @@
 (init--install-packages)
 
 (require 'setup-org-mode)
+(require 'setup-magit)
