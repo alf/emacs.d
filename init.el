@@ -49,6 +49,9 @@
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 
+(require 'move-text)
+(move-text-default-bindings)
+
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
