@@ -1,3 +1,6 @@
+(require 'org)
+(require 'org-habit)
+
 (setq dropbox-dir (expand-file-name "~/Dropbox"))
 (setq org-directory (file-name-as-directory
                      (expand-file-name "Org" dropbox-dir)))

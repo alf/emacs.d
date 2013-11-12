@@ -11,10 +11,12 @@
 (defun init--install-packages ()
   (packages-install
    '(org
+     ack
+     exec-path-from-shell
+     expand-region
      magit
      paredit
      move-text
-     god-mode
      gist
      htmlize
      visual-regexp
@@ -43,3 +45,11 @@
 
 (require 'setup-org-mode)
 (require 'setup-magit)
+
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
+(eval-after-load 'eshell '(require 'setup-eshell))

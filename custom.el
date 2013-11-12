@@ -5,7 +5,8 @@
  ;; If there is more than one, they won't work right.
  '(magit-emacsclient-executable "/usr/local/bin/emacsclient")
  '(ns-alternate-modifier (quote none))
- '(ns-command-modifier (quote meta)))
+ '(ns-command-modifier (quote meta))
+ '(org-babel-clojure-backend (quote cider)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
