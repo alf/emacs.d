@@ -12,11 +12,8 @@
   (packages-install
    '(org
      ack
-     exec-path-from-shell
-     expand-region
      magit
      paredit
-     move-text
      gist
      htmlize
      visual-regexp
@@ -46,12 +43,13 @@
 (require 'setup-org-mode)
 (require 'setup-magit)
 
-(require 'expand-region)
+(require-package 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 
-(require 'move-text)
+(require-package 'move-text)
 (move-text-default-bindings)
 
+(require-package 'exec-path-from-shell)
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
