@@ -42,6 +42,8 @@
 
 (require 'setup-org-mode)
 (require 'setup-magit)
+(autoload 'skewer-start "setup-skewer" nil t)
+(autoload 'skewer-demo "setup-skewer" nil t)
 
 (require-package 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
