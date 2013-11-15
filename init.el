@@ -56,3 +56,5 @@
   (exec-path-from-shell-initialize))
 
 (eval-after-load 'eshell '(require 'setup-eshell))
+
+(require 'setup-mu4e)
