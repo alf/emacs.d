@@ -13,7 +13,6 @@
    '(org
      ack
      magit
-     paredit
      gist
      htmlize
      visual-regexp
@@ -56,5 +55,6 @@
   (exec-path-from-shell-initialize))
 
 (eval-after-load 'eshell '(require 'setup-eshell))
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 (require 'setup-mu4e)
