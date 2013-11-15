@@ -5,6 +5,7 @@
 (defvar my-mu4e-account-alist
   '(("Bouvet"
      (mu4e-sent-folder "/Bouvet/Sent Items")
+     (mu4e-trash-folder "/Bouvet/Deleted Items")
      (mu4e-drafts-folder "/Bouvet/Drafts")
      (user-mail-address "alf.lervag@bouvet.no")
      (message-signature-file ".Bouvet.txt")
@@ -14,8 +15,9 @@
      (smtpmail-stream-type starttls)
      (smtpmail-smtp-service 465))
     ("Lervag"
-     (mu4e-sent-folder "/Lervag/sent_messages")
-     (mu4e-drafts-folder "/Lervag/drafts")
+     (mu4e-sent-folder "/Lervag/Sent Messages")
+     (mu4e-trash-folder "/Lervag/Deleted Messages")
+     (mu4e-drafts-folder "/Lervag/Drafts")
      (user-mail-address "alf@lervag.net")
      (message-signature-file ".Lervag.txt")
      (smtpmail-default-smtp-server "smtp.gmail.com")
@@ -24,8 +26,9 @@
      (smtpmail-stream-type starttls)
      (smtpmail-smtp-service 587))
     ("GMail"
-     (mu4e-sent-folder "/GMail/sent_messages")
-     (mu4e-drafts-folder "/GMail/drafts")
+     (mu4e-sent-folder "/GMail/Sent Messages")
+     (mu4e-trash-folder "/Lervag/Deleted Messages")
+     (mu4e-drafts-folder "/GMail/Drafts")
      (user-mail-address "alfborge@gmail.com")
      (message-signature-file ".GMail.txt")
      (smtpmail-default-smtp-server "smtp.gmail.com")
@@ -55,5 +58,10 @@
 
 (my-mu4e-set-account "Bouvet")
 (add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
+
+(setq mu4e-bookmarks
+      '(("flag:unread AND NOT flag:trashed AND NOT (maildir:/Lervag/[Gmail].Spam OR maildir:/GMail/[Gmail].Spam)" "Unread messages" 117)
+        ("date:today..now" "Today's messages" 116)
+        ("date:7d..now" "Last 7 days" 119)))
 
 (provide 'setup-mu4e)
