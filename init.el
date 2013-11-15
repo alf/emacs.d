@@ -58,3 +58,4 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (require 'setup-mu4e)
+(require 'setup-smartparens)
