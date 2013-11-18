@@ -1,6 +1,7 @@
 ;; enable inline images
 (setq mu4e-view-show-images t)
 (setq mu4e-html2text-command "html2text -utf8 -width 72 -nobs")
+(setq mu4e-sent-messages-behavior 'delete)
 
 (defvar my-mu4e-account-alist
   '(("Bouvet"
@@ -60,8 +61,8 @@
 (add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
 
 (setq mu4e-bookmarks
-      '(("flag:unread AND NOT flag:trashed AND NOT (maildir:/Lervag/[Gmail].Spam OR maildir:/GMail/[Gmail].Spam)" "Unread messages" 117)
-        ("date:today..now" "Today's messages" 116)
-        ("date:7d..now" "Last 7 days" 119)))
+      '(("flag:unread AND NOT flag:trashed AND NOT (maildir:/Lervag/[Gmail].Spam OR maildir:/GMail/[Gmail].Spam OR maildir:\"/Lervag/[Gmail].All Mail\" OR maildir:\"/GMail/[Gmail].All Mail\")" "Unread messages" 117)
+        ("date:today..now AND NOT flag:trashed AND NOT (maildir:/Lervag/[Gmail].Spam OR maildir:/GMail/[Gmail].Spam OR maildir:\"/Lervag/[Gmail].All Mail\" OR maildir:\"/GMail/[Gmail].All Mail\")" "Today's messages" 116)
+        ("date:7d..now AND NOT flag:trashed AND NOT (maildir:/Lervag/[Gmail].Spam OR maildir:/GMail/[Gmail].Spam OR maildir:\"/Lervag/[Gmail].All Mail\" OR maildir:\"/GMail/[Gmail].All Mail\")" "Last 7 days" 119)))
 
 (provide 'setup-mu4e)
