@@ -47,6 +47,9 @@
 (require-package 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 
+(require-package 'ace-jump-mode)
+(global-set-key (kbd "C-x SPC")  'ace-jump-mode)
+
 (require-package 'move-text)
 (move-text-default-bindings)
 
