@@ -65,4 +65,6 @@
         ("date:today..now AND NOT flag:trashed AND NOT (maildir:/Lervag/[Gmail].Spam OR maildir:/GMail/[Gmail].Spam OR maildir:\"/Lervag/[Gmail].All Mail\" OR maildir:\"/GMail/[Gmail].All Mail\")" "Today's messages" 116)
         ("date:7d..now AND NOT flag:trashed AND NOT (maildir:/Lervag/[Gmail].Spam OR maildir:/GMail/[Gmail].Spam OR maildir:\"/Lervag/[Gmail].All Mail\" OR maildir:\"/GMail/[Gmail].All Mail\")" "Last 7 days" 119)))
 
+(require 'org-mu4e)
+
 (provide 'setup-mu4e)

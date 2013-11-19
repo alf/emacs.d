@@ -30,7 +30,8 @@ re-downloaded in order to locate PACKAGE."
         (goto-char (point-max))
         (eval-print-last-sexp)))))
 
-
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(require 'el-get)
 (el-get 'sync '(mu4e))
 
 (provide 'setup-package)
