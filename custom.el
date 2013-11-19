@@ -7,6 +7,7 @@
  '(ns-alternate-modifier (quote none))
  '(ns-command-modifier (quote meta))
  '(org-babel-clojure-backend (quote cider))
+ '(send-mail-function (quote mailclient-send-it))
  '(visible-bell t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
