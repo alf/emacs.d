@@ -62,3 +62,12 @@
 
 (require 'setup-mu4e)
 (require 'setup-smartparens)
+(require 'setup-keybindings)
+
+(require-package 'sparql-mode)
+
+(require-package 'csharp-mode)
+(require-package 'projectile)
+(put 'set-goal-column 'disabled nil)
+(require-package 'goto-last-change)
+(global-set-key "\C-x\C-\\" 'goto-last-change)

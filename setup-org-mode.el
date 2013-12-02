@@ -135,8 +135,8 @@
 (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
 
 ; Targets include this file and any file contributing to the agenda - up to 9 levels deep
-(setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                 (org-agenda-files :maxlevel . 9))))
+(setq org-refile-targets (quote ((nil :maxlevel . 3)
+                                 (org-agenda-files :maxlevel . 3))))
 
 ; Use full outline paths for refile targets - we file directly with IDO
 (setq org-refile-use-outline-path t)
@@ -1459,7 +1459,7 @@ Late deadlines first, then scheduled, then non-late deadlines"
 (setq org-blank-before-new-entry (quote ((heading)
                                          (plain-list-item . auto))))
 
-(setq org-insert-heading-respect-content nil)
+(setq org-insert-heading-respect-content t)
 
 (setq org-reverse-note-order nil)
 
@@ -1609,8 +1609,6 @@ Late deadlines first, then scheduled, then non-late deadlines"
       (org-return)
       (org-cycle)
       (bh/insert-inactive-timestamp))))
-
-(add-hook 'org-insert-heading-hook 'bh/insert-heading-inactive-timestamp 'append)
 
 (setq org-export-with-timestamps nil)
 
