@@ -24,7 +24,7 @@
               ("n" "note" entry (file ,(expand-file-name "refile.org"))
                "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
               ("j" "Journal" entry (file+datetree ,(expand-file-name "journal.org"))
-               "* %?\n%U\n" :clock-in t :clock-resume t)
+               "* %?\n%U\n%a\n" :clock-in t :clock-resume t)
               ("p" "Phone call" entry (file ,(expand-file-name "refile.org"))
                "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
               ("h" "Habit" entry (file ,(expand-file-name "refile.org"))
@@ -1456,10 +1456,10 @@ Late deadlines first, then scheduled, then non-late deadlines"
 
 (setq org-cycle-separator-lines 0)
 
-(setq org-blank-before-new-entry (quote ((heading)
+(setq org-blank-before-new-entry (quote ((heading . auto)
                                          (plain-list-item . auto))))
 
-(setq org-insert-heading-respect-content t)
+(setq org-insert-heading-respect-content nil)
 
 (setq org-reverse-note-order nil)
 

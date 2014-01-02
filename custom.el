@@ -7,6 +7,7 @@
  '(magit-emacsclient-executable "/usr/local/bin/emacsclient")
  '(ns-alternate-modifier (quote none))
  '(ns-command-modifier (quote meta))
+ '(nxml-child-indent 4)
  '(org-babel-clojure-backend (quote cider))
  '(send-mail-function (quote mailclient-send-it))
  '(visible-bell t))

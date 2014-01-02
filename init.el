@@ -71,3 +71,4 @@
 (put 'set-goal-column 'disabled nil)
 (require-package 'goto-last-change)
 (global-set-key "\C-x\C-\\" 'goto-last-change)
+(put 'narrow-to-region 'disabled nil)

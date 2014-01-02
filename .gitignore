@@ -9,3 +9,5 @@
 /eshell
 /el-get
 /projectile-bookmarks.eld
+/request/curl-cookie-jar
+/srecode-map.el
