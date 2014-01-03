@@ -25,17 +25,6 @@
      (smtpmail-local-domain "lervag.net")
      (smtpmail-smtp-server "smtp.gmail.com")
      (smtpmail-stream-type starttls)
-     (smtpmail-smtp-service 587))
-    ("GMail"
-     (mu4e-sent-folder "/GMail/Sent Messages")
-     (mu4e-trash-folder "/Lervag/Deleted Messages")
-     (mu4e-drafts-folder "/GMail/Drafts")
-     (user-mail-address "alfborge@gmail.com")
-     (message-signature-file ".GMail.txt")
-     (smtpmail-default-smtp-server "smtp.gmail.com")
-     (smtpmail-local-domain "gmail.com")
-     (smtpmail-smtp-server "smtp.gmail.com")
-     (smtpmail-stream-type starttls)
      (smtpmail-smtp-service 587))))
 
 (defun my-mu4e-set-account (&optional account)
