@@ -72,3 +72,6 @@
 (require-package 'goto-last-change)
 (global-set-key "\C-x\C-\\" 'goto-last-change)
 (put 'narrow-to-region 'disabled nil)
+
+(require 'setup-malabar)
+(require 'setup-jad)
