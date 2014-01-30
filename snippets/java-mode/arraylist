@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: ArrayList<T>
-# key: arraylist
-# --
-List<$1> $2 = new ArrayList<$1>();$0

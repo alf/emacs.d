@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: start
-# key: start
-# --
-long start = System.nanoTime();
