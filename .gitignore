@@ -1,0 +1,13 @@
+/backups
+/elpa
+/abbrev_defs
+/auto-save-list
+/.org-id-locations
+/org-clock-save.el
+/places
+/bookmarks
+/eshell
+/el-get
+/projectile-bookmarks.eld
+/request/curl-cookie-jar
+/srecode-map.el
