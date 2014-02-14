@@ -9,4 +9,4 @@
   (set-mark (point-max))
   (decompile-region))
 
-(provide 'jad)
+(provide 'setup-jad)

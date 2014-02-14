@@ -19,18 +19,24 @@
   (setq org-capture-templates
         `(("t" "todo" entry (file ,(expand-file-name "refile.org"))
                "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("r" "respond" entry (file ,(expand-file-name "refile.org"))
-               "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-              ("n" "note" entry (file ,(expand-file-name "refile.org"))
-               "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("j" "Journal" entry (file+datetree ,(expand-file-name "journal.org"))
-               "* %?\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("p" "Phone call" entry (file ,(expand-file-name "refile.org"))
-               "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-              ("h" "Habit" entry (file ,(expand-file-name "refile.org"))
-               "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n")
-              ("b" "Blog idea" entry (file+headline ,(expand-file-name "blog-ideas.org") "Blog ideas")
-               "** %?\n%u\n"))))
+          ("c" "todo under current clock" entry (clock)
+           "* TODO %?\n%U   %a%i" )
+          ("i" "idea" entry (file ,(expand-file-name "refile.org"))
+           "* IDEA %?\n%U   %a%i" )
+          ("l" "log under current clock" entry (clock)
+           "* LOG %?\n%U   %a%i" )
+          ("r" "respond" entry (file ,(expand-file-name "refile.org"))
+           "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
+          ("n" "note" entry (file ,(expand-file-name "refile.org"))
+           "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+          ("j" "Journal" entry (file+datetree ,(expand-file-name "journal.org"))
+           "* %?\n%U\n%a\n" :clock-in t :clock-resume t)
+          ("p" "Phone call" entry (file ,(expand-file-name "refile.org"))
+           "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
+          ("h" "Habit" entry (file ,(expand-file-name "refile.org"))
+           "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n")
+          ("b" "Blog idea" entry (file+headline ,(expand-file-name "blog-ideas.org") "Blog ideas")
+           "** %?\n%u\n"))))
 
 ;; Custom Key Bindings
 (global-set-key (kbd "<f12>") 'org-agenda)
@@ -149,12 +155,6 @@
 
 ; Use IDO for both buffer and file completion and ido-everywhere to t
 (setq org-completion-use-ido t)
-(setq ido-everywhere t)
-(setq ido-max-directory-size 100000)
-(ido-mode (quote both))
-; Use the current window when visiting files and buffers with ido
-(setq ido-default-file-method 'selected-window)
-(setq ido-default-buffer-method 'selected-window)
 
 ;;;; Refile settings
 ; Exclude DONE state tasks from refile targets

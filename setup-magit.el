@@ -19,4 +19,11 @@
 
 (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace)
 
+(add-hook 'magit-mode-hook 'magit-load-config-extensions)
+
+(defun alf/magit-log-folder (dir-name)
+  (interactive "DDirectory :")
+  (setq magit-refresh-args `(oneline "HEAD" ("--graph" "--" ,dir-name)))
+  (magit-refresh))
+
 (provide 'setup-magit)

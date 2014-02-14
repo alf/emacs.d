@@ -1,1 +1,2 @@
 addpath /usr/local/bin
+alias mvn-debug-test 'mvn -Dmaven.surefire.debug test'

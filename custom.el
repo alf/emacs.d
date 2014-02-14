@@ -3,8 +3,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ede-project-directories (quote ("/Users/alf/Projects/kunde/mattilsynet/arkivgrensesnitt")))
  '(enable-recursive-minibuffers t)
- '(magit-emacsclient-executable "/usr/local/bin/emacsclient")
+ '(inhibit-startup-screen t)
+ '(magit-emacsclient-executable "/opt/boxen/homebrew/bin/emacsclient")
  '(ns-alternate-modifier (quote none))
  '(ns-command-modifier (quote meta))
  '(nxml-child-indent 4)

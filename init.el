@@ -17,13 +17,13 @@
      htmlize
      visual-regexp
      flycheck
-     flx
-     flx-ido
+     ;flx
+     ;flx-ido
      css-eldoc
      yasnippet
      smartparens
-     ido-vertical-mode
-     ido-at-point
+     ;ido-vertical-mode
+     ;ido-at-point
      simple-httpd
      guide-key
      restclient
@@ -35,9 +35,15 @@
      gitignore-mode
      clojure-mode
      cider
-     cider-tracing)))
+     cider-tracing
+     dot-mode
+     session
+     auto-complete)))
 
 (init--install-packages)
+
+(require 'dot-mode)
+(add-hook 'find-file-hooks 'dot-mode-on)
 
 (require 'setup-org-mode)
 (require 'setup-magit)
@@ -73,5 +79,25 @@
 (global-set-key "\C-x\C-\\" 'goto-last-change)
 (put 'narrow-to-region 'disabled nil)
 
+(require 'setup-auto-complete)
 (require 'setup-malabar)
 (require 'setup-jad)
+
+(when (require 'session nil t)
+  (add-hook 'after-init-hook 'session-initialize)
+  (add-to-list 'session-globals-exclude 'org-mark-ring))
+
+(add-hook 'after-init-hook 'session-initialize)
+
+(setq erc-hide-list '("JOIN" "PART" "QUIT"))
+
+(require 'custom-functions)
+(require 'setup-helm)
+
+(setq ido-everywhere nil)
+(setq ido-max-directory-size 100000)
+(ido-mode (quote both))
+(ido-mode nil)
+; Use the current window when visiting files and buffers with ido
+(setq ido-default-file-method 'selected-window)
+(setq ido-default-buffer-method 'selected-window)
