@@ -101,3 +101,6 @@
 ; Use the current window when visiting files and buffers with ido
 (setq ido-default-file-method 'selected-window)
 (setq ido-default-buffer-method 'selected-window)
+
+(setq guide-key/recursive-key-sequence-flag t)
+(setq guide-key/guide-key-sequence '("C-x a" "C-x c" "C-x r"))
