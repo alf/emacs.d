@@ -6,6 +6,7 @@
 (require 'malabar-mode)
 
 (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
+(add-hook 'malabar-mode-hook 'subword-mode)
 
 (defun insert-then-trigger ()
   (interactive)
