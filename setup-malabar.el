@@ -11,5 +11,7 @@
   (insert ".")
   (ac-complete-semantic))
 
-(define-key malabar-mode-map "." 'insert-then-trigger)
+(add-hook 'malabar-mode-hook
+	  (lambda ()
+	    (define-key malabar-mode-map "." 'insert-then-trigger)))
 (provide 'setup-malabar)
