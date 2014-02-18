@@ -1,7 +1,6 @@
 (require 'package)
 
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-
 (package-initialize)
 
 (defun packages-install (packages)
@@ -20,18 +19,5 @@ re-downloaded in order to locate PACKAGE."
       (progn
         (package-refresh-contents)
         (require-package package min-version t)))))
-
-(defun init--el-get ()
-  (unless (require 'el-get nil 'noerror)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-      (let (el-get-master-branch)
-        (goto-char (point-max))
-        (eval-print-last-sexp)))))
-
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-(require 'el-get)
-(el-get 'sync '(mu4e))
 
 (provide 'setup-package)

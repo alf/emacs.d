@@ -4,10 +4,11 @@
 ;;
 
 (require-package 'skewer-mode)
-(require 'skewer-mode)
 (require 'skewer-repl)
 (require 'skewer-html)
 (require 'skewer-css)
+(autoload 'skewer-start "setup-skewer" nil t)
+(autoload 'skewer-demo "setup-skewer" nil t)
 
 (defun skewer-start ()
   (interactive)

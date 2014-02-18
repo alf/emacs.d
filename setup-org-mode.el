@@ -1,5 +1,8 @@
-(require 'org)
+(require-package 'org)
 (require 'org-habit)
+
+(setq org-mobile-inbox-for-pull "~/Dropbox/Org/refile.org")
+(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
 
 (setq dropbox-dir (expand-file-name "~/Dropbox"))
 (setq org-directory (file-name-as-directory

@@ -1,4 +1,4 @@
-(require 'magit)
+(require-package 'magit)
 (global-set-key (kbd "C-x C-z") 'magit-status)
 
 (defun magit-toggle-whitespace ()

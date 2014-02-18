@@ -1,4 +1,19 @@
 ;; enable inline images
+
+(defun init--el-get ()
+  (unless (require 'el-get nil 'noerror)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+      (let (el-get-master-branch)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))))
+
+
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(init--el-get)
+(el-get 'sync '(mu4e))
+
 (setq mu4e-view-show-images t)
 (setq mu4e-html2text-command "html2text -utf8 -width 72 -nobs")
 (setq mu4e-sent-messages-behavior 'delete)

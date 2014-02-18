@@ -2,9 +2,7 @@
 (require 'semantic)
 ;(load "semantic/loaddefs.el")
 (semantic-mode 1)
-
-(require 'malabar-mode)
-
+(require-package 'malabar-mode)
 (add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
 (add-hook 'malabar-mode-hook 'subword-mode)
 
