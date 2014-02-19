@@ -8,6 +8,7 @@
 (setq vc-make-backup-files t)
 
 (require 'setup-package)
+(require 'setup-better-defaults)
 
 (defun init--install-packages ()
   (packages-install
