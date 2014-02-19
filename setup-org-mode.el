@@ -310,6 +310,7 @@ Switch projects and subprojects from NEXT back to TODO"
 selected task.  If no task is selected set the Organization task
 as the default task."
   (interactive "p")
+  (org-mobile-pull)
   (setq bh/keep-clock-running t)
   (if (equal major-mode 'org-agenda-mode)
       ;;
@@ -332,6 +333,7 @@ as the default task."
 
 (defun bh/punch-out ()
   (interactive)
+  (org-mobile-push)
   (setq bh/keep-clock-running nil)
   (when (org-clock-is-active)
     (org-clock-out))
