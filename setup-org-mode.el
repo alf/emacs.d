@@ -134,7 +134,6 @@
 ; Allow refile to create parent tasks with confirmation
 (setq org-refile-allow-creating-parent-nodes (quote confirm))
 
-; Use IDO for both buffer and file completion and ido-everywhere to t
 (setq org-completion-use-helm t)
 
 ;;;; Refile settings
