@@ -28,10 +28,7 @@
      sparql-mode
      csharp-mode
      cider
-     cider-tracing
-     dot-mode
-     session
-     auto-complete)))
+     cider-tracing)))
 
 (init--install-packages)
 
