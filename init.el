@@ -32,6 +32,7 @@
 
 (init--install-packages)
 
+(require 'setup-key-chard)
 (require 'setup-dot-mode)
 (require 'setup-org-mode)
 (require 'setup-magit)
@@ -54,6 +55,7 @@
 (require 'custom-functions)
 (require 'setup-helm)
 (require 'setup-guide-key)
+(require 'setup-evil)
 
 (put 'set-goal-column 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
