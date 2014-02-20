@@ -13,11 +13,17 @@
 (global-set-key (kbd "C-x C-d") 'helm-projectile)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x c a") 'helm-ag)
+(global-set-key (kbd "C-x c o") 'helm-occur)
 (global-set-key (kbd "C-c H") 'helm-resume)
+
+(setq helm-split-window-default-side 'right)
+
+(defun helm-magit-status-action (candidate)
+  (with-helm-buffer (magit-status candidate)))
 
 (helm-add-action-to-source
  "Magit status"
- #'(lambda (_candidate) (with-helm-buffer (magit-status helm-default-directory)))
+ 'helm-magit-status-action
  helm-source-find-files)
 
 (helm-mode 1)
