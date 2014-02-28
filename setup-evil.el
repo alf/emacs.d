@@ -8,5 +8,6 @@
 (add-hook 'org-capture-prepare-finalize-hook 'evil-normal-state)
 (evil-set-initial-state 'magit-process-mode 'emacs)
 (evil-set-initial-state 'jira-mode 'emacs)
+(evil-set-initial-state 'git-commit-mode 'emacs)
 (evil-set-initial-state 'help-mode 'emacs)
 (provide 'setup-evil)
