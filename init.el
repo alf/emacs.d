@@ -1,11 +1,13 @@
 (setenv "PATH" (concat "/opt/boxen/homebrew/bin:" (getenv "PATH")))
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file)
 
 (add-to-list 'load-path user-emacs-directory)
 
 (require 'setup-package)
 (require 'setup-better-defaults)
+(require 'setup-session)
+(load custom-file)
 
 (defun init--install-packages ()
   (packages-install
@@ -50,7 +52,6 @@
 (require 'setup-auto-complete)
 (require 'setup-malabar)
 (require 'setup-jad)
-(require 'setup-session)
 (require 'setup-erc)
 (require 'custom-functions)
 (require 'setup-helm)

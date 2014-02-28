@@ -12,6 +12,7 @@
  '(nxml-child-indent 4)
  '(org-babel-clojure-backend (quote cider))
  '(send-mail-function (quote mailclient-send-it))
+ '(session-use-package t nil (session))
  '(visible-bell t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
