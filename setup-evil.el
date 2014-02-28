@@ -4,8 +4,9 @@
 (key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
 (define-key evil-insert-state-map (kbd "C-SPC") 'evil-normal-state)
 
-;; Doesn't seem to work, but we'll keep it for now so I know that I've tried it.
-;(evil-set-initial-state 'org-capture-mode 'insert)
+(add-hook 'org-capture-mode-hook 'evil-emacs-state)
+(add-hook 'org-capture-prepare-finalize-hook 'evil-normal-state)
 (evil-set-initial-state 'magit-process-mode 'emacs)
-;(add-hook 'org-capture-mode-hook 'evil-append-line)
+(evil-set-initial-state 'jira-mode 'emacs)
+(evil-set-initial-state 'help-mode 'emacs)
 (provide 'setup-evil)
