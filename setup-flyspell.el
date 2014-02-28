@@ -7,19 +7,19 @@
 
 (setq
    ispell-dictionary-alist
-   '((nil				; default 
+   '(("en-US"
+      "[A-Za-z]" "[^A-Za-z]" "[\"]"
+      nil ("-d" "en-US") nil utf-8)
+     ("nb"
       "[A-Za-zçéêèóôòæøåÇÉÊÈÓÔÒÆØÅ]" "[^A-Za-zçéêèóôòæøåÇÉÊÈÓÔÒÆØÅ]" "[\"]"
-      nil ("-d" "/Users/username/.enchant/myspell/nb_NO") nil utf-8)
-     ("nynorsk"
+      nil ("-d" "nb") nil utf-8)
+     ("nn"
       "[A-Za-zçéêèóôòæøåÇÉÊÈÓÔÒÆØÅ]" "[^A-Za-zçéêèóôòæøåÇÉÊÈÓÔÒÆØÅ]" "[\"]"
-      nil ("-d" "/Users/username/.enchant/myspell/nn_NO") nil utf-8)
-     ("bokmål"
-      "[A-Za-zçéêèóôòæøåÇÉÊÈÓÔÒÆØÅ]" "[^A-Za-zçéêèóôòæøåÇÉÊÈÓÔÒÆØÅ]" "[\"]"
-      nil ("-d" "/Users/username/.enchant/myspell/nb_NO") nil utf-8)))
+      nil ("-d" "nn") nil utf-8)))
 
 (eval-after-load "ispell"
     (progn
-      (setq ispell-dictionary "bokmål"
+      (setq ispell-dictionary "en-US"
 	    ispell-extra-args '("-a" "-i" "utf-8") ; aspell doesn't understand -i utf-8, hunspell needs it
 	    ispell-silently-savep t)))
 
