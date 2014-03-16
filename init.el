@@ -37,6 +37,7 @@
 (require 'setup-key-chord)
 (require 'setup-dot-mode)
 (require 'setup-org-mode)
+(require 'setup-org-jira)
 (require 'setup-magit)
 (require 'setup-skewer)
 (require 'setup-expand-region)
