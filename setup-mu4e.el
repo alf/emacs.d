@@ -1,5 +1,3 @@
-;; enable inline images
-
 (defun init--el-get ()
   (unless (require 'el-get nil 'noerror)
     (with-current-buffer
@@ -17,6 +15,15 @@
 (setq mu4e-view-show-images t)
 (setq mu4e-html2text-command "html2text -utf8 -width 72 -nobs")
 (setq mu4e-sent-messages-behavior 'delete)
+
+(add-hook 'message-mode-hook 'orgstruct++-mode 'append)
+(add-hook 'message-mode-hook 'turn-on-auto-fill 'append)
+(add-hook 'message-mode-hook 'bbdb-mail-aliases 'append)
+(add-hook 'message-mode-hook 'orgtbl-mode 'append)
+(add-hook 'message-mode-hook 'turn-on-flyspell 'append)
+(add-hook 'message-mode-hook
+          '(lambda () (setq fill-column 72))
+          'append)
 
 (defvar my-mu4e-account-alist
   '(("Bouvet"
