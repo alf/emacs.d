@@ -5,6 +5,9 @@
  ;; If there is more than one, they won't work right.
  '(ede-project-directories (quote ("/Users/alf/Projects/kunde/mattilsynet/arkivgrensesnitt")))
  '(enable-recursive-minibuffers t)
+ '(erc-nick "alfborge" t)
+ '(erc-port 6667)
+ '(erc-prompt-for-password nil)
  '(inhibit-startup-screen t)
  '(jira-url "https://jira.bouvet.no/rpc/xmlrpc")
  '(jira-username "alf.lervag")
