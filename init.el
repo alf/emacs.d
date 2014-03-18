@@ -35,7 +35,6 @@
 (init--install-packages)
 
 (require 'setup-key-chord)
-(require 'setup-dot-mode)
 (require 'setup-org-mode)
 (require 'setup-org-jira)
 (require 'setup-magit)
