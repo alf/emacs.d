@@ -3,6 +3,8 @@
 ;; Custom Key Bindings
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c b") 'org-iswitchb)
 (global-set-key (kbd "C-c C-x I") 'alf/org-punch-in)
 (global-set-key (kbd "C-c C-x O") 'alf/org-punch-out)
 (global-set-key (kbd "C-c C-x C-o") 'org-clock-out)
@@ -177,7 +179,7 @@
   (org-mobile-pull)
   (org-clock-in-last '(4)))
   
-(defun alf/org-punch-in ()
+(defun alf/org-punch-out ()
   (interactive)
   (org-mobile-push)
   (org-clock-out))
