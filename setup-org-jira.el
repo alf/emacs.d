@@ -2,3 +2,4 @@
 (setq jiralib-url "https://jira.bouvet.no")
 
 (require 'org-jira)
+(provide 'setup-org-jira)
