@@ -85,7 +85,7 @@
                              '(priority-down category-keep))))
                 (tags-todo "-HOLD-CANCELLED/!"
                            ((org-agenda-overriding-header "Root tasks")
-                            (org-agenda-skip-function 'alf/skip-if-subproject)
+                            (org-agenda-skip-function #'(alf/skip-if 'bh/is-subproject-p))
                             (org-agenda-sorting-strategy
                              '(priority-down category-keep))))
                 (tags-todo "-PROJECT-HOLD-CANCELLED/!"
@@ -183,9 +183,9 @@
   (org-mobile-push)
   (org-clock-out))
 
-(defun alf/skip-if-subproject ()
+(defun alf/skip-if (pred)
   (let ((subtree-end (save-excursion (org-end-of-subtree t))))
-    (if (bh/is-subproject-p)
+    (if (funcall pred)
         subtree-end
       nil)))
 
