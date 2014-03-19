@@ -58,6 +58,7 @@
 (require 'setup-guide-key)
 (require 'setup-evil)
 (require 'setup-flyspell)
+(require 'setup-salt)
 
 (put 'set-goal-column 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
