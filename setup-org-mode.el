@@ -83,6 +83,11 @@
                            ((org-agenda-overriding-header "Projects")
                             (org-agenda-sorting-strategy
                              '(priority-down category-keep))))
+                (tags-todo "-HOLD-CANCELLED/!"
+                           ((org-agenda-overriding-header "Root tasks")
+                            (org-agenda-skip-function 'alf/skip-if-subproject)
+                            (org-agenda-sorting-strategy
+                             '(priority-down category-keep))))
                 (tags-todo "-PROJECT-HOLD-CANCELLED/!"
                            ((org-agenda-overriding-header "Tasks")
                             (org-agenda-sorting-strategy
@@ -177,6 +182,22 @@
   (interactive)
   (org-mobile-push)
   (org-clock-out))
+
+(defun alf/skip-if-subproject ()
+  (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+    (if (bh/is-subproject-p)
+        subtree-end
+      nil)))
+
+(defun bh/is-subproject-p ()
+  "Any task which is a subtask of another project"
+  (let ((is-subproject)
+        (is-a-task (member (nth 2 (org-heading-components)) org-todo-keywords-1)))
+    (save-excursion
+      (while (and (not is-subproject) (org-up-heading-safe))
+        (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
+          (setq is-subproject t))))
+    (and is-a-task is-subproject)))
 
 (setq org-use-fast-todo-selection t)
 
