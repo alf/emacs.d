@@ -122,26 +122,20 @@
                (org-tags-match-list-sublevels nil)))))
 
 ; Tags with fast selection keys
-(setq org-tag-alist (quote ((:startgroup)
-                            ("@errand" . ?e)
-                            ("@office" . ?o)
-                            ("@home" . ?H)
-                            ("@farm" . ?f)
-                            (:endgroup)
+(setq org-tag-alist (quote (("PROJECT" . ?p)
                             ("PHONE" . ?p)
                             ("WAITING" . ?w)
                             ("HOLD" . ?h)
                             ("PERSONAL" . ?P)
                             ("WORK" . ?W)
-                            ("FARM" . ?F)
                             ("ORG" . ?O)
-                            ("NORANG" . ?N)
-                            ("crypt" . ?E)
-                            ("MARK" . ?M)
                             ("NOTE" . ?n)
                             ("CANCELLED" . ?c)
                             ("FLAGGED" . ??))))
 
+;; Don't inherit the PROJECT tag since subtasks of a project should
+;; not be considered a project
+(add-to-list 'org-tags-exclude-from-inheritance "PROJECT")
 ;;
 ;; Resume clocking task when emacs is restarted
 (org-clock-persistence-insinuate)
@@ -177,7 +171,7 @@
 (defun alf/org-punch-in ()
   (interactive)
   (org-mobile-pull)
-  (org-clock-in-last '(4)))
+  (org-clock-in '(4)))
   
 (defun alf/org-punch-out ()
   (interactive)
