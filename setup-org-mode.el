@@ -1,4 +1,5 @@
 (require-package 'org)
+(require 'org)
 
 ;; Custom Key Bindings
 (global-set-key (kbd "C-c a") 'org-agenda)
