@@ -26,11 +26,8 @@
      git-commit-mode
      gitconfig-mode
      gitignore-mode
-     clojure-mode
      sparql-mode
-     csharp-mode
-     cider
-     cider-tracing)))
+     csharp-mode)))
 
 (init--install-packages)
 
@@ -59,6 +56,9 @@
 (require 'setup-evil)
 (require 'setup-flyspell)
 (require 'setup-salt)
+(require 'setup-clojure)
+(require 'setup-yasnippet)
+(require 'setup-python)
 
 (put 'set-goal-column 'disabled nil)
 (put 'narrow-to-region 'disabled nil)

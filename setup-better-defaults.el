@@ -10,5 +10,6 @@
 ;; Make backups of files, even when they're in version control
 (setq vc-make-backup-files t)
 
+(add-to-list 'after-save-hook 'delete-trailing-whitespace)
 
 (provide 'setup-better-defaults)

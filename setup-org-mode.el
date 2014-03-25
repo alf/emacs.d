@@ -1,3 +1,4 @@
+(add-to-list 'load-path (expand-file-name "bleeding/org-mode/lisp" user-emacs-directory))
 (require-package 'org)
 (require 'org)
 
@@ -10,7 +11,7 @@
 (global-set-key (kbd "C-c C-x O") 'alf/org-punch-out)
 (global-set-key (kbd "C-c C-x C-o") 'org-clock-out)
 (global-set-key (kbd "C-c C-x C-j") 'org-clock-goto)
-(global-set-key (kbd "C-c C-x C-x") 'org-clock-in-last)
+(global-set-key (kbd "C-c C-x C-x") 'org-clock-in)
 
 (setq org-mobile-inbox-for-pull "~/Dropbox/Org/refile.org")
 (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
@@ -178,7 +179,7 @@
   (interactive)
   (org-mobile-pull)
   (org-clock-in '(4)))
-  
+
 (defun alf/org-punch-out ()
   (interactive)
   (org-mobile-push)
@@ -329,5 +330,6 @@
 (setq org-agenda-clockreport-parameter-plist
       (quote (:link t :maxlevel 5 :fileskip0 t :narrow 80)))
 
+(setq org-confirm-babel-evaluate nil)
 
 (provide 'setup-org-mode)
