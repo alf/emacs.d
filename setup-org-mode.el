@@ -11,6 +11,7 @@
 (global-set-key (kbd "C-c C-x O") 'alf/org-punch-out)
 (global-set-key (kbd "C-c C-x C-o") 'org-clock-out)
 (global-set-key (kbd "C-c C-x C-j") 'org-clock-goto)
+(global-set-key (kbd "C-c C-x SPC") 'bh/clock-in-last-task)
 (global-set-key (kbd "C-c C-x C-x") 'org-clock-in)
 
 (setq org-mobile-inbox-for-pull "~/Dropbox/Org/refile.org")
@@ -81,8 +82,8 @@
                 (tags "REFILE"
                       ((org-agenda-overriding-header "Tasks to Refile")
                        (org-tags-match-list-sublevels nil)))
-                (tags-todo "PROJECT-HOLD-CANCELLED/!"
-                           ((org-agenda-overriding-header "Projects")
+                (todo "NEXT"
+                           ((org-agenda-overriding-header "Next tasks")
                             (org-agenda-sorting-strategy
                              '(priority-down category-keep))))
                 (tags-todo "-HOLD-CANCELLED/!"
@@ -200,6 +201,24 @@
         (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
           (setq is-subproject t))))
     (and is-a-task is-subproject)))
+
+(defun bh/clock-in-last-task (arg)
+  "Clock in the interrupted task if there is one
+Skip the default task and get the next one.
+A prefix arg forces clock in of the default task."
+  (interactive "p")
+  (let ((clock-in-to-task
+         (cond
+          ((eq arg 4) org-clock-default-task)
+          ((and (org-clock-is-active)
+                (equal org-clock-default-task (cadr org-clock-history)))
+           (caddr org-clock-history))
+          ((org-clock-is-active) (cadr org-clock-history))
+          ((equal org-clock-default-task (car org-clock-history)) (cadr org-clock-history))
+          (t (car org-clock-history)))))
+    (widen)
+    (org-with-point-at clock-in-to-task
+      (org-clock-in nil))))
 
 (setq org-use-fast-todo-selection t)
 
