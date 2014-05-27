@@ -1,3 +1,4 @@
 addpath /usr/local/bin
 alias mvn-debug-test 'mvn -Dmaven.surefire.debug test'
 setenv DOCKER_HOST tcp://localhost:4243
+setenv JAVA_HOME /Library/Java/JavaVirtualMachines/jdk1.7.0_21.jdk/Contents/Home
