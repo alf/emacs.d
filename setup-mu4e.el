@@ -72,9 +72,9 @@
 (add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
 
 (setq mu4e-bookmarks
-      '(("flag:unread AND NOT flag:trashed AND NOT (maildir:/Lervag/[Gmail].Spam OR maildir:/GMail/[Gmail].Spam OR maildir:\"/Lervag/[Gmail].All Mail\" OR maildir:\"/GMail/[Gmail].All Mail\")" "Unread messages" 117)
-        ("date:today..now AND NOT flag:trashed AND NOT (maildir:/Lervag/[Gmail].Spam OR maildir:/GMail/[Gmail].Spam OR maildir:\"/Lervag/[Gmail].All Mail\" OR maildir:\"/GMail/[Gmail].All Mail\")" "Today's messages" 116)
-        ("date:7d..now AND NOT flag:trashed AND NOT (maildir:/Lervag/[Gmail].Spam OR maildir:/GMail/[Gmail].Spam OR maildir:\"/Lervag/[Gmail].All Mail\" OR maildir:\"/GMail/[Gmail].All Mail\")" "Last 7 days" 119)))
+      '(("flag:unread AND NOT flag:trashed" "Unread messages" 117)
+        ("date:today..now AND NOT flag:trashed" "Today's messages" 116)
+        ("date:7d..now AND NOT flag:trashed" "Last 7 days" 119)))
 
 (require 'org-mu4e)
 
