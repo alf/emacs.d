@@ -20,7 +20,22 @@
     ;; fall back to helm mini if an error occurs (usually in `projectile-project-root')
     (error (helm-mini))))
 
+;; History of compile commands.
+(defvar alf/rebuffer-history nil)
+(defvar alf/rebuffer-input nil
+  "input to use for rebuffer")
+
+(defun alf/helm-rebuffer (&optional prefill)
+  (interactive "P")
+  (when (or prefill (not alf/rebuffer-input))
+    (setq alf/rebuffer-input (read-string "Input: " nil 'alf/rebuffer-history)))
+
+  (helm :sources '(helm-c-source-buffers-list helm-c-source-buffer-not-found)
+        :buffer "*helm-java-buffers*"
+        :input alf/rebuffer-input))
+
 (global-set-key (kbd "C-c h") 'helm-prelude)
+(global-set-key (kbd "C-c j") 'alf/helm-rebuffer)
 (global-set-key (kbd "C-x C-d") 'helm-projectile)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x c a") 'helm-ag)
