@@ -183,6 +183,7 @@
 
 (defun alf/org-punch-out ()
   (interactive)
+  (save-some-buffers)
   (org-mobile-push)
   (org-clock-out))
 
