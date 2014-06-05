@@ -2,7 +2,7 @@
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
-(add-to-list 'load-path user-emacs-directory)
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (require 'setup-package)
 (require 'setup-better-defaults)
