@@ -1,4 +1,3 @@
-(add-to-list 'load-path (expand-file-name "bleeding/org-mode/lisp" user-emacs-directory))
 (require-package 'org)
 (require 'org)
 
