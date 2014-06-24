@@ -59,6 +59,7 @@
 (require 'setup-clojure)
 (require 'setup-yasnippet)
 (require 'setup-python)
+(require 'setup-hipchat)
 
 (put 'set-goal-column 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
