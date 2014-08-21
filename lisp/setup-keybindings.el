@@ -1,8 +1,12 @@
-(global-set-key (kbd "C-x o")  'next-multiframe-window)
-(global-set-key (kbd "C-x O")  'previous-multiframe-window)
+(global-set-key (kbd "C-x o")  'other-window)
+(global-set-key (kbd "C-x O")  'reverse-other-window)
 (global-set-key (kbd "C-c C") 'recompile)
 (global-set-key (kbd "M-§") 'other-frame)
 (global-set-key (kbd "M-`") 'other-frame)
+
+(defun reverse-other-window ()
+  (interactive)
+  (other-window -1))
 
 (defun recompile-mvn-debug (&optional edit-command)
   (interactive "P")
