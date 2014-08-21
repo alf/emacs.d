@@ -31,6 +31,9 @@
 
 (init--install-packages)
 
+(if (> (x-display-pixel-width) 1280)
+    (set-face-attribute 'default nil :height 200))
+
 (require 'setup-key-chord)
 (require 'setup-org-mode)
 (require 'setup-org-jira)
