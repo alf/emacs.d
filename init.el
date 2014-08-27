@@ -58,6 +58,7 @@
 (require 'setup-guide-key)
 (require 'setup-evil)
 (require 'setup-flyspell)
+(require 'setup-flymake)
 (require 'setup-salt)
 (require 'setup-clojure)
 (require 'setup-yasnippet)
