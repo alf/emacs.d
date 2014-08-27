@@ -26,8 +26,6 @@
 
 (global-set-key (kbd "M-S-C-c C") 'recompile-mvn-coverage)
 
-(global-set-key "\M-/" 'auto-complete)
-
 (global-set-key (kbd "M-RET") 'toggle-frame-fullscreen)
 
 (provide 'setup-keybindings)

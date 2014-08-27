@@ -13,4 +13,6 @@
 
 (global-auto-complete-mode t)
 
+(global-set-key "\M-/" 'auto-complete)
+
 (provide 'setup-auto-complete)
