@@ -26,8 +26,7 @@
      git-commit-mode
      gitconfig-mode
      gitignore-mode
-     sparql-mode
-     csharp-mode)))
+     sparql-mode)))
 
 (init--install-packages)
 
