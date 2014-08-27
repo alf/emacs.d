@@ -5,6 +5,7 @@
 (require-package 'helm-ls-git)
 (require-package 'helm-projectile)
 
+(require 'helm-buffers)
 (require 'helm-projectile)
 (require 'helm-ls-git)
 (require 'helm-config)
@@ -34,6 +35,7 @@
         :buffer "*helm-java-buffers*"
         :input alf/rebuffer-input))
 
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
 (global-set-key (kbd "C-c h") 'helm-prelude)
 (global-set-key (kbd "C-c j") 'alf/helm-rebuffer)
 (global-set-key (kbd "C-x C-d") 'helm-projectile)
