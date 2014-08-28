@@ -10,6 +10,7 @@
 (evil-set-initial-state 'jira-mode 'emacs)
 (evil-set-initial-state 'dired-mode 'emacs)
 (evil-set-initial-state 'git-commit-mode 'emacs)
+(evil-set-initial-state 'git-rebase-mode 'emacs)
 (evil-set-initial-state 'help-mode 'emacs)
 
 ;; change mode-line color by evil state
