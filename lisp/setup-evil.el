@@ -12,6 +12,7 @@
 (evil-set-initial-state 'git-commit-mode 'emacs)
 (evil-set-initial-state 'git-rebase-mode 'emacs)
 (evil-set-initial-state 'help-mode 'emacs)
+(evil-set-initial-state 'eshell-mode 'emacs)
 
 ;; change mode-line color by evil state
 (lexical-let ((default-color (cons (face-background 'mode-line)
