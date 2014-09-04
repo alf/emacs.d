@@ -47,15 +47,14 @@
           ("b" "Blog idea" entry (file+headline ,(expand-file-name "blog-ideas.org") "Blog ideas")
            "** %?\n%u\n")
           ("r" "respond" entry (file ,(expand-file-name "refile.org"))
-           "* NEXT Respond to %:from on %:subject\n	SCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t))))
+           "* TODO Respond to %:from on %:subject\n	SCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t))))
 
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+      (quote ((sequence "TODO(t)" "|" "DONE(d)")
               (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE"))))
 
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "red" :weight bold)
-              ("NEXT" :foreground "blue" :weight bold)
               ("DONE" :foreground "forest green" :weight bold)
               ("WAITING" :foreground "orange" :weight bold)
               ("HOLD" :foreground "magenta" :weight bold)
@@ -68,7 +67,6 @@
               ("HOLD" ("WAITING" . t) ("HOLD" . t))
               (done ("WAITING") ("HOLD"))
               ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
-              ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
               ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
 
 ;; Custom agenda command definitions
@@ -81,10 +79,6 @@
                 (tags "REFILE"
                       ((org-agenda-overriding-header "Tasks to Refile")
                        (org-tags-match-list-sublevels nil)))
-                (todo "NEXT"
-                           ((org-agenda-overriding-header "Next tasks")
-                            (org-agenda-sorting-strategy
-                             '(priority-down category-keep))))
                 (tags-todo "-HOLD-CANCELLED/!"
                            ((org-agenda-overriding-header "Root tasks")
                             (org-agenda-skip-function #'(alf/skip-if 'bh/is-subproject-p))
@@ -108,14 +102,6 @@
               ("r" "Tasks to Refile" tags "REFILE"
                ((org-agenda-overriding-header "Tasks to Refile")
                 (org-tags-match-list-sublevels nil)))
-              ("n" "Next Tasks" tags-todo "-WAITING-CANCELLED/!NEXT"
-               ((org-agenda-overriding-header "Next Tasks")
-                (org-agenda-todo-ignore-scheduled t)
-                (org-agenda-todo-ignore-deadlines t)
-                (org-agenda-todo-ignore-with-date t)
-                (org-tags-match-list-sublevels t)
-                (org-agenda-sorting-strategy
-                 '(todo-state-down effort-up category-keep))))
               ("R" "Tasks" tags-todo "-REFILE-CANCELLED/!-HOLD-WAITING"
                ((org-agenda-overriding-header "Tasks")
                 (org-agenda-sorting-strategy
