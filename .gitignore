@@ -18,3 +18,5 @@
 /tramp
 /url/cookies
 /url/
+/.python-environments/
+/projectile.cache
