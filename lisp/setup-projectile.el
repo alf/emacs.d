@@ -16,4 +16,8 @@
 (define-key projectile-mode-map (kbd "C-c p p") 'helm-projectile-switch-project)
 (setq projectile-switch-project-action 'alf/helm-projectile-find-files)
 
+(define-key helm-map (kbd "C-d") '(lambda ()
+                  (interactive)
+                  (helm-select-nth-action 1)))
+
 (provide 'setup-projectile)
