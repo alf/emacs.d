@@ -78,26 +78,7 @@
                ((agenda "" nil)
                 (tags "REFILE"
                       ((org-agenda-overriding-header "Tasks to Refile")
-                       (org-tags-match-list-sublevels nil)))
-                (tags-todo "-HOLD-CANCELLED/!"
-                           ((org-agenda-overriding-header "Root tasks")
-                            (org-agenda-skip-function #'(alf/skip-if 'bh/is-subproject-p))
-                            (org-agenda-sorting-strategy
-                             '(priority-down category-keep))))
-                (tags-todo "-PROJECT-HOLD-CANCELLED/!"
-                           ((org-agenda-overriding-header "Tasks")
-                            (org-agenda-sorting-strategy
-                             '(priority-down category-keep))))
-                (tags-todo "WAITING-HOLD-CANCELLED/!"
-                           ((org-agenda-overriding-header "Waiting and Postponed Tasks")
-                            (org-tags-match-list-sublevels nil)
-                            (org-agenda-todo-ignore-scheduled 'future)
-                            (org-agenda-todo-ignore-deadlines 'future)))
-                (todo "HOLD"
-                           ((org-agenda-overriding-header "Held Projects")
-
-                            (org-agenda-sorting-strategy
-                             '(priority-down category-keep)))))
+                       (org-tags-match-list-sublevels nil))))
                nil)
               ("r" "Tasks to Refile" tags "REFILE"
                ((org-agenda-overriding-header "Tasks to Refile")
