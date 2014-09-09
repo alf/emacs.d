@@ -107,6 +107,14 @@
                             ("CANCELLED" . ?c)
                             ("FLAGGED" . ??))))
 
+;; Don't show done tasks in the agenda
+(setq org-agenda-skip-deadline-if-done t)
+(setq org-agenda-skip-scheduled-if-done t)
+
+;; Don't bother showing the past, the future is more interesting
+;; We use reporting for the past
+(setq org-agenda-start-on-weekday nil)
+
 ;; Don't inherit the PROJECT tag since subtasks of a project should
 ;; not be considered a project
 (add-to-list 'org-tags-exclude-from-inheritance "PROJECT")
