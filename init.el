@@ -40,6 +40,7 @@
 (require 'setup-skewer)
 (require 'setup-expand-region)
 (require 'setup-ace-jump-mode)
+(require 'setup-ace-jump-buffer)
 (require 'setup-move-text)
 (require 'setup-exec-path-from-shell)
 (require 'setup-eshell)
