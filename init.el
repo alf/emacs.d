@@ -56,7 +56,7 @@
 (require 'custom-functions)
 (require 'setup-helm)
 (require 'setup-guide-key)
-(require 'setup-evil)
+;(require 'setup-evil)
 (require 'setup-flyspell)
 (require 'setup-flymake)
 (require 'setup-salt)
