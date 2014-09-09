@@ -5,35 +5,36 @@
 (require-package 'helm-ls-git)
 (require-package 'helm-projectile)
 
+(setq helm-command-prefix-key "C-c h")
+
+(require 'helm-config)
+(require 'helm-eshell)
+(require 'helm-files)
 (require 'helm-buffers)
 (require 'helm-projectile)
+(require 'helm-grep)
 (require 'helm-ls-git)
-(require 'helm-config)
 
-;; History of compile commands.
-(defvar alf/rebuffer-history nil)
-(defvar alf/rebuffer-input nil
-  "input to use for rebuffer")
-
-(defun alf/helm-rebuffer (&optional prefill)
-  (interactive "P")
-  (when (or prefill (not alf/rebuffer-input))
-    (setq alf/rebuffer-input (read-string "Input: " nil 'alf/rebuffer-history)))
-
-  (helm :sources '(helm-c-source-buffers-list helm-c-source-buffer-not-found)
-        :buffer "*helm-java-buffers*"
-        :input alf/rebuffer-input))
-
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
-(global-set-key (kbd "C-c h") 'helm-projectile)
-(global-set-key (kbd "C-c j") 'alf/helm-rebuffer)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "C-x C-d") 'helm-projectile)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-x c a") 'helm-ag)
-(global-set-key (kbd "C-x c o") 'helm-occur)
+
 (global-set-key (kbd "C-c H") 'helm-resume)
 
+(global-set-key (kbd "C-c h a") 'helm-ag)
+(global-set-key (kbd "C-c h o") 'helm-occur)
+(global-set-key (kbd "C-c h x") 'helm-register)
+(global-set-key (kbd "C-c h SPC") 'helm-all-mark-rings)
+
+(define-key helm-map (kbd "C-d") '(lambda ()
+                  (interactive)
+                  (helm-select-nth-action 1)))
+
 (setq helm-split-window-default-side 'right)
+
+(add-hook 'helm-goto-line-before-hook 'helm-save-current-pos-to-mark-ring)
 
 (defun helm-magit-status-action (candidate)
   (with-helm-buffer (magit-status candidate)))
