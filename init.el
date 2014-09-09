@@ -30,8 +30,9 @@
 
 (init--install-packages)
 
-(if (> (x-display-pixel-width) 1280)
-    (set-face-attribute 'default nil :height 200))
+(if (> (display-pixel-width) 1440)
+    (set-face-attribute 'default nil :height 200)
+  (set-face-attribute 'default nil :height 140))
 
 (require 'setup-key-chord)
 (require 'setup-org-mode)
