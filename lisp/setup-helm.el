@@ -2,6 +2,7 @@
 (ido-mode nil)
 
 (require-package 'helm)
+(require-package 'helm-ag)
 (require-package 'helm-ls-git)
 (require-package 'helm-projectile)
 
@@ -39,7 +40,7 @@
 
 (add-hook 'eshell-mode-hook
           #'(lambda ()
-              (define-key eshell-mode-map (kbd "M-l")  'helm-eshell-history)))
+              (define-key eshell-mode-map (kbd "C-c C-l")  'helm-eshell-history)))
 
 (define-key helm-map (kbd "C-d") '(lambda ()
                   (interactive)
