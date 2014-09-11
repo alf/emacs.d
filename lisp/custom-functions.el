@@ -41,4 +41,22 @@ by using nxml's indentation rules."
   (interactive "r")
   (func-region start end #'url-unhex-string))
 
+(defun recompile-mvn-coverage (&optional edit-command)
+  (interactive "P")
+  (let ((orig-compile-command compile-command))
+    (setq compile-command "mvn clean cobertura:cobertura")
+    (recompile)
+    (setq compile-command orig-compile-command)))
+
+(defun reverse-other-window ()
+  (interactive)
+  (other-window -1))
+
+(defun recompile-mvn-debug (&optional edit-command)
+  (interactive "P")
+  (let ((orig-compile-command compile-command))
+    (setq compile-command (concat compile-command " -Dmaven.surefire.debug"))
+    (recompile)
+    (setq compile-command orig-compile-command)))
+
 (provide 'custom-functions)
