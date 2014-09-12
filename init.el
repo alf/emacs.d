@@ -14,12 +14,9 @@
    '(ack
      gist
      htmlize
-     visual-regexp
      flycheck
-     css-eldoc
      yasnippet
      simple-httpd
-     restclient
      highlight-escape-sequences
      whitespace-cleanup-mode
      elisp-slime-nav
@@ -37,12 +34,10 @@
 (require 'setup-environment)
 (require 'setup-key-chord)
 (require 'setup-org-mode)
-(require 'setup-org-jira)
 (require 'setup-magit)
 (require 'setup-skewer)
 (require 'setup-expand-region)
 (require 'setup-ace-jump-mode)
-(require 'setup-ace-jump-buffer)
 (require 'setup-move-text)
 (require 'setup-mu4e)
 (require 'setup-smartparens)
@@ -55,9 +50,7 @@
 (require 'custom-functions)
 (require 'setup-helm)
 (require 'setup-projectile)
-(require 'setup-guide-key)
 (require 'setup-flyspell)
-(require 'setup-flymake)
 (require 'setup-salt)
 (require 'setup-clojure)
 (require 'setup-yasnippet)

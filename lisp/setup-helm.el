@@ -3,7 +3,6 @@
 
 (require-package 'helm)
 (require-package 'helm-ag)
-(require-package 'helm-ls-git)
 (require-package 'helm-projectile)
 
 (setq helm-command-prefix-key "C-c h")
@@ -14,7 +13,6 @@
 (require 'helm-buffers)
 (require 'helm-projectile)
 (require 'helm-grep)
-(require 'helm-ls-git)
 
 (global-set-key (kbd "M-x") 'helm-M-x)
 

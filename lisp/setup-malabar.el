@@ -16,7 +16,4 @@
 	  (lambda ()
 	    (define-key malabar-mode-map "." 'insert-then-trigger)))
 
-(require-package 'java-snippets)
-(java-snippets-initialize)
-
 (provide 'setup-malabar)

@@ -1,5 +1,4 @@
 (require-package 'cider)
-(require-package 'cider-tracing)
 (require-package 'ac-cider-compliment)
 (require-package 'clojure-mode)
 
