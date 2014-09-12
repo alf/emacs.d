@@ -6,7 +6,7 @@
 
 (require 'setup-package)
 (require 'setup-better-defaults)
-(require 'setup-session)
+
 (load custom-file)
 
 (defun init--install-packages ()

@@ -20,7 +20,6 @@
  '(org-babel-clojure-backend (quote cider) t)
  '(python-check-command "flake8")
  '(send-mail-function (quote mailclient-send-it))
- '(session-use-package t nil (session))
  '(visible-bell t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
