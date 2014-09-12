@@ -13,7 +13,7 @@
  '(inhibit-startup-screen t)
  '(jira-url "https://jira.bouvet.no/rpc/xmlrpc")
  '(jira-username "alf.lervag")
- '(magit-emacsclient-executable "/opt/boxen/homebrew/bin/emacsclient")
+ '(magit-emacsclient-executable "/usr/local/bin/emacsclient")
  '(ns-alternate-modifier (quote none))
  '(ns-command-modifier (quote meta))
  '(nxml-child-indent 4)
