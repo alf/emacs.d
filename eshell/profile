@@ -1,6 +1,0 @@
-addpath /usr/local/bin
-alias mvn-debug-test 'mvn -Dmaven.surefire.debug test'
-alias dip "docker inspect --format '{{ .NetworkSettings.IPAddress }}' $1"
-alias dgc 'docker rm { docker ps -aq }; docker rmi { docker images -qf dangling=true }'
-setenv DOCKER_HOST tcp://localhost:2375
-setenv JAVA_HOME /Library/Java/JavaVirtualMachines/jdk1.7.0_21.jdk/Contents/Home

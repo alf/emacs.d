@@ -1,61 +1,40 @@
-(setenv "PATH" (concat "/opt/boxen/homebrew/bin:" (getenv "PATH")))
-
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-
-(require 'setup-package)
-(require 'setup-better-defaults)
-
+;; Most of my settings are set using customize
+(setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
-(defun init--install-packages ()
-  (packages-install
-   '(ack
-     gist
-     htmlize
-     flycheck
-     yasnippet
-     simple-httpd
-     highlight-escape-sequences
-     whitespace-cleanup-mode
-     elisp-slime-nav
-     git-commit-mode
-     gitconfig-mode
-     gitignore-mode
-     sparql-mode)))
+;; Add my lisp folder to the load-path so we can require helper
+;; functions etc.
+(add-to-list 'load-path "~/.emacs.d/lisp")
+(require 'helpers)
 
-(init--install-packages)
+(package-initialize)
+(package-refresh-contents)
+(package-install-selected-packages)
 
-(if (> (display-pixel-width) 1440)
-    (set-face-attribute 'default nil :height 200)
-  (set-face-attribute 'default nil :height 140))
+;; Some OSX specific stuff
+(when (eq system-type 'darwin)
+  (progn
+    ;; I use CAPSLOCK for typing accented characters, this works system
+    ;; wide, so Emacs needs to fall in line here.
+    (setq ns-alternate-modifier 'none)
 
-(require 'setup-environment)
-(require 'setup-key-chord)
-(require 'setup-org-mode)
-(require 'setup-magit)
-(require 'setup-skewer)
-(require 'setup-expand-region)
-(require 'setup-ace-jump-mode)
-(require 'setup-move-text)
-(require 'setup-mu4e)
-(require 'setup-smartparens)
-(require 'setup-keybindings)
-(require 'setup-goto-last-change)
-(require 'setup-auto-complete)
-(require 'setup-malabar)
-(require 'setup-jad)
-(require 'setup-erc)
-(require 'custom-functions)
-(require 'setup-helm)
-(require 'setup-projectile)
-(require 'setup-flyspell)
-(require 'setup-salt)
-(require 'setup-clojure)
-(require 'setup-yasnippet)
-(require 'setup-python)
-(require 'setup-hipchat)
+    ;; I prefer the command keys for meta, and a symetrical keyboard
+    ;; layout so I can alternate which hands holds the control keys
+    (setq ns-command-modifier 'meta)
 
-(put 'set-goal-column 'disabled nil)
-(put 'narrow-to-region 'disabled nil)
+    ;; Include /usr/local/bin in PATH and exec-path 
+    (alf/add-to-path "/usr/local/bin")))
+
+;; Magit is more important than minimizing emacs
+(global-set-key (kbd "C-x C-z") 'magit-status)
+
+;; Use helm because it's awesome
+(require 'helm-config)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
+(global-set-key (kbd "C-h b") 'helm-descbinds)
+(global-set-key (kbd "M-/") 'helm-dabbrev)
+
+;; Use projectile to easily switch between projects
+(projectile-global-mode)
