@@ -5,6 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(enable-recursive-minibuffers t)
  '(helm-autoresize-mode t)
+ '(helm-ff-file-name-history-use-recentf t)
  '(inhibit-startup-screen t)
  '(package-archives
    (quote
