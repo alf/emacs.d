@@ -13,7 +13,7 @@
      ("melpa" . "http://melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (helm-projectile helm-descbinds helm-ls-git projectile magit helm))))
+    (paredit helm-projectile helm-descbinds helm-ls-git projectile magit helm))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
