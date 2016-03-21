@@ -30,13 +30,13 @@
 
 ;; Use helm because it's awesome
 (require 'helm-config)
+(global-set-key (kbd "C-h") 'helm-command-prefix)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x C-p") 'helm-browse-project)
 (global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "C-x c s") 'helm-do-grep-ag)
 (global-set-key (kbd "C-h b") 'helm-descbinds)
-(global-set-key (kbd "C-h a") 'helm-apropos)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "M-/") 'helm-dabbrev)
 

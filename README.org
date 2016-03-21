@@ -1,0 +1,47 @@
+* Documentation of my current configuration
+
+The goal with this rewrite is to make the configuration as easy to
+follow as possible. Keep as much in =~/.emacs.d/init.el= as possible,
+only factor out helper functions and maybe language specific stuff.
+** Helm
+
+Following [[http://tuhdo.github.io/helm-intro.html][tuhdos nice tutorial]], I want to get the most out of =helm=.
+
+A very mnemonic and easy leader key for =helm= is =C-h=. By default,
+this is bound to emacs help. Fortunately emacs help is also bound to
+=<f1>=, so I'm not loosing anything with this rebind.
+
+Further, since =helm= provides some some really good functionality for
+looking up emacs help, I might not miss the =C-h= binding at all.
+
+*** TODO Go through the following binding list to see if there's anything I want to keep
+
+- (<f1> . . display-local-help)
+- (<f1> ? . help-for-help)
+- (<f1> C . describe-coding-system)
+- (<f1> F . Info-goto-emacs-command-node)
+- (<f1> K . Info-goto-emacs-key-command-node)
+- (<f1> L . describe-language-environment)
+- (<f1> P . describe-package)
+- (<f1> S . info-lookup-symbol)
+- (<f1> d . apropos-documentation)
+- (<f1> e . view-echo-area-messages)
+- (<f1> f . describe-function)
+- (<f1> g . describe-gnu-project)
+- (<f1> h . view-hello-file)
+- (<f1> i . info)
+- (<f1> k . describe-key)
+- (<f1> l . view-lossage)
+- (<f1> m . describe-mode)
+- (<f1> n . view-emacs-news)
+- (<f1> o . describe-symbol)
+- (<f1> p . finder-by-keyword)
+- (<f1> q . help-quit)
+- (<f1> r . info-emacs-manual)
+- (<f1> s . describe-syntax)
+- (<f1> t . help-with-tutorial)
+- (<f1> v . describe-variable)
+- (<f1> w . where-is)
+- (<f1> <f1> . help-for-help)
+- (<f1> <help> . help-for-help)
+- (<f1> 4 i . info-other-window)
