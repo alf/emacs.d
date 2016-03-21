@@ -40,9 +40,12 @@
 ;; Use helm because it's awesome
 (require 'helm-config)
 (global-set-key (kbd "C-h") 'helm-command-prefix)
+(global-set-key (kbd "C-h P") 'helm-list-emacs-process)
+(global-set-key (kbd "C-h p") 'helm-projectile)
+(global-set-key (kbd "C-h k") 'describe-key)
+
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-x C-p") 'helm-browse-project)
 (global-set-key (kbd "C-x b") 'helm-mini)
 
 (if (executable-find "ag")
@@ -83,3 +86,17 @@ If current selection is a file, `magit-status' from its directory."
 
 ;; Use projectile to easily switch between projects
 (projectile-global-mode)
+
+;;; Toggle features easily with: C-x t <key>
+;;; From http://endlessparentheses.com/the-toggle-map-and-wizardry.html
+(define-prefix-command 'alf/toggle-map)
+(define-key ctl-x-map "t" 'alf/toggle-map)
+(define-key alf/toggle-map "c" 'column-number-mode)
+(define-key alf/toggle-map "e" 'toggle-debug-on-error)
+(define-key alf/toggle-map "f" 'auto-fill-mode)
+(define-key alf/toggle-map "t" 'toggle-truncate-lines)
+(define-key alf/toggle-map "q" 'toggle-debug-on-quit)
+
+;;; My very own prefix key
+(define-prefix-command 'alf/ctl-z-map)
+(define-key global-map "\C-z" 'alf/ctl-z-map)
