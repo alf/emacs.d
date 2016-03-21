@@ -13,17 +13,26 @@
 
 ;; Some OSX specific stuff
 (when (eq system-type 'darwin)
-  (progn
-    ;; I use CAPSLOCK for typing accented characters, this works system
-    ;; wide, so Emacs needs to fall in line here.
-    (setq ns-alternate-modifier 'none)
+  ;; I use CAPSLOCK for typing accented characters, this works system
+  ;; wide, so Emacs needs to fall in line here.
+  (setq ns-alternate-modifier 'none)
 
-    ;; I prefer the command keys for meta, and a symetrical keyboard
-    ;; layout so I can alternate which hands holds the control keys
-    (setq ns-command-modifier 'meta)
+  ;; I prefer the command keys for meta, and a symetrical keyboard
+  ;; layout so I can alternate which hands holds the control keys
+  (setq ns-command-modifier 'meta)
 
-    ;; Include /usr/local/bin in PATH and exec-path
-    (alf/add-to-path "/usr/local/bin")))
+  ;; Include /usr/local/bin in PATH and exec-path
+  (alf/add-to-path "/usr/local/bin"))
+
+(when (eq system-type 'windows-nt)
+  ;; Make $HOME the default directory
+  (cd "~")
+
+  ;; Add extra helper commands to PATH and exec-path
+  (alf/add-to-path "C:/MinGW/bin")
+  (alf/add-to-path "C:/MinGW/msys/1.0/bin")
+  (dolist (p '("Git\\Bin" "Git\\usr\\bin"))
+    (alf/add-to-path (concat (getenv "LOCALAPPDATA") "\\Programs\\" p))))
 
 ;; Magit is more important than minimizing emacs
 (global-set-key (kbd "C-x C-z") 'magit-status)

@@ -4,6 +4,6 @@
   "Add given path to exec-path and the PATH environment variable"
   (interactive)
   (add-to-list 'exec-path path)
-  (setenv "PATH" (concat (getenv "PATH") ":" path)))
+  (setenv "PATH" (concat path ":" (getenv "PATH"))))
 
 (provide 'helpers)
