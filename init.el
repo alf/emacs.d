@@ -100,3 +100,6 @@ If current selection is a file, `magit-status' from its directory."
 ;;; My very own prefix key
 (define-prefix-command 'alf/ctl-z-map)
 (define-key global-map "\C-z" 'alf/ctl-z-map)
+
+;; Load my org-mode settings, this is pretty big so I've moved it to a different file.
+(load "~/.emacs.d/init-org.el")
