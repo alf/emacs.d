@@ -1,15 +1,28 @@
+(defconst emacs-start-time (current-time))
+
+(unless noninteractive
+  (message "Loading %s..." load-file-name))
+
+(setq message-log-max 16384)
+
 ;; Most of my settings are set using customize
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
+(load (expand-file-name "custom.el" user-emacs-directory))
 
-;; Add my lisp folder to the load-path so we can require helper
-;; functions etc.
-(add-to-list 'load-path "~/.emacs.d/lisp")
-(require 'helpers)
-
+;; Set up elpa now so we can found the modules we're using.
 (package-initialize)
-(package-refresh-contents)
-(package-install-selected-packages)
+
+(eval-when-compile
+  (defvar use-package-verbose t)
+  (require 'use-package))
+
+(require 'bind-key)
+(require 'diminish nil t)
+
+;; Make sure we can find the programs we need.
+(use-package exec-path-from-shell
+  :demand t
+  :config
+  (exec-path-from-shell-initialize))
 
 ;; Some OSX specific stuff
 (when (eq system-type 'darwin)
@@ -19,59 +32,52 @@
 
   ;; I prefer the command keys for meta, and a symetrical keyboard
   ;; layout so I can alternate which hands holds the control keys
-  (setq ns-command-modifier 'meta)
+  (setq ns-command-modifier 'meta))
 
-  ;; Include /usr/local/bin in PATH and exec-path
-  (alf/add-to-path "/usr/local/bin"))
-
+;; Some Windows specific stuff
 (when (eq system-type 'windows-nt)
   ;; Make $HOME the default directory
-  (cd "~")
+  (cd "~"))
 
-  ;; Add extra helper commands to PATH and exec-path
-  (alf/add-to-path "C:/MinGW/bin")
-  (alf/add-to-path "C:/MinGW/msys/1.0/bin")
-  (dolist (p '("Git\\Bin" "Git\\usr\\bin"))
-    (alf/add-to-path (concat (getenv "LOCALAPPDATA") "\\Programs\\" p))))
+(use-package magit
+  :demand t
+  :bind (("C-x C-z" . magit-status)))
 
-;; Magit is more important than minimizing emacs
-(global-set-key (kbd "C-x C-z") 'magit-status)
-
-;; Use helm because it's awesome
-(require 'helm-config)
-(global-set-key (kbd "C-h") 'helm-command-prefix)
-(global-set-key (kbd "C-h P") 'helm-list-emacs-process)
-(global-set-key (kbd "C-h p") 'helm-projectile)
-(global-set-key (kbd "C-h k") 'describe-key)
-
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "C-x b") 'helm-mini)
-
-(if (executable-find "ag")
-    (global-set-key (kbd "C-x c s") 'helm-do-grep-ag)
-  (global-set-key (kbd "C-x c s") 'helm-grep-do-git-grep))
-
-(global-set-key (kbd "C-h b") 'helm-descbinds)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "M-/") 'helm-dabbrev)
-
-(require 'helm-files)
-(define-key helm-find-files-map (kbd "C-s") 'helm-ff-run-grep-ag)
-
-(defun alf/helm-quit-and-magit ()
-  "Drop into `magit-status' from `helm'.
+(use-package helm
+  :demand t
+  :preface
+  (defun alf/helm-quit-and-magit ()
+    "Drop into `magit-status' from `helm'.
 If current selection is a file, `magit-status' from its directory."
-  (interactive)
-  (with-helm-alive-p
-    (helm-run-after-exit
-     (lambda (f)
-       (if (file-exists-p f)
-	   (magit-status-internal (file-name-directory f))
-	 (magit-status)))
-     (helm-get-selection))))
+    (interactive)
+    (with-helm-alive-p
+     (helm-run-after-exit
+      (lambda (f)
+	(if (file-exists-p f)
+	    (magit-status-internal (file-name-directory f))
+	  (magit-status)))
+      (helm-get-selection))))
 
-(define-key helm-map (kbd "C-x C-z") 'alf/helm-quit-and-magit)
+  :bind (("C-h"     . helm-command-prefix)
+	 ("C-h b"   . helm-descbinds)
+	 ("M-y"     . helm-show-kill-ring)
+	 ("M-/"     . helm-dabbrev)
+         ("C-x f"   . helm-multi-files)
+         ("C-h P"   . helm-list-emacs-process)
+         ("C-h p"   . helm-projectile)
+         ("C-h k"   . describe-key)
+         ("M-x"     . helm-M-x)
+         ("C-x C-f" . helm-find-files)
+         ("C-x b"   . helm-mini)
+         ("M-H"     . helm-resume)
+	 :map helm-map
+	 ("C-x C-z" . alf/helm-quit-and-magit)
+	 :map helm-find-files-map
+	 ("C-s" . helm-ff-run-grep-ag))
+
+  :config
+  (require 'helm-config)
+  (require 'helm-files))
 
 ;; Use helm to browse histories
 (define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
