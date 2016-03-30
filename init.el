@@ -108,6 +108,11 @@ If current selection is a file, `magit-status' from its directory."
            :prefix "C-z"
            )
 
+(use-package ace-jump-mode
+  :defer t
+  :init
+  (autoload 'ace-jump-mode "ace-jump-mode" nil t)
+  (bind-key "C-;" 'ace-jump-mode))
 
 ;; Load my org-mode settings, this is pretty big so I've moved it to a different file.
 (load "~/.emacs.d/init-org.el")
