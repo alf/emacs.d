@@ -18,12 +18,6 @@
 (require 'bind-key)
 (require 'diminish nil t)
 
-;; Make sure we can find the programs we need.
-(use-package exec-path-from-shell
-  :demand t
-  :config
-  (exec-path-from-shell-initialize))
-
 ;; Some OSX specific stuff
 (when (eq system-type 'darwin)
   ;; I use CAPSLOCK for typing accented characters, this works system
@@ -32,7 +26,13 @@
 
   ;; I prefer the command keys for meta, and a symetrical keyboard
   ;; layout so I can alternate which hands holds the control keys
-  (setq ns-command-modifier 'meta))
+  (setq ns-command-modifier 'meta)
+
+  ;; Make sure we can find the programs we need.
+  (use-package exec-path-from-shell
+    :demand t
+    :config
+    (exec-path-from-shell-initialize)))
 
 ;; Some Windows specific stuff
 (when (eq system-type 'windows-nt)
