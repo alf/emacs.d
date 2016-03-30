@@ -57,14 +57,12 @@ If current selection is a file, `magit-status' from its directory."
 	    (magit-status-internal (file-name-directory f))
 	  (magit-status)))
       (helm-get-selection))))
-
+  :commands helm-eshell-history
   :bind (("C-h"     . helm-command-prefix)
-	 ("C-h b"   . helm-descbinds)
 	 ("M-y"     . helm-show-kill-ring)
 	 ("M-/"     . helm-dabbrev)
          ("C-x f"   . helm-multi-files)
          ("C-h P"   . helm-list-emacs-process)
-         ("C-h p"   . helm-projectile)
          ("C-h k"   . describe-key)
          ("M-x"     . helm-M-x)
          ("C-x C-f" . helm-find-files)
@@ -73,24 +71,40 @@ If current selection is a file, `magit-status' from its directory."
 	 :map helm-map
 	 ("C-x C-z" . alf/helm-quit-and-magit)
 	 :map helm-find-files-map
-	 ("C-s" . helm-ff-run-grep-ag))
+	 ("C-s" . helm-ff-run-grep-ag)
+	 ;; Use helm to browse histories
+	 :map shell-mode-map
+	 ("C-c C-l" . helm-comint-input-ring)
+	 :map minibuffer-local-map
+	 ("C-c C-l" . helm-minibuffer-history))
 
   :config
   (require 'helm-config)
   (require 'helm-files)
   (helm-mode))
 
-;; Use helm to browse histories
-(define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
-(define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
-(add-hook 'eshell-mode-hook
-          #'(lambda ()
-              (define-key eshell-mode-map (kbd "C-c C-l")  'helm-eshell-history)))
+(use-package helm-descbinds
+  :bind (("C-h b"   . helm-descbinds)))
 
-;(add-hook 'helm-goto-line-before-hook 'helm-save-current-pos-to-mark-ring)
+(use-package eshell
+  :preface
+  (defun eshell-initialize ()
+    (bind-key "C-c C-l" 'helm-eshell-history eshell-mode-map))
+  :config
+  (add-hook 'eshell-first-time-mode-hook 'eshell-initialize))
+
+(use-package server
+  :if window-system
+  :init
+  (add-hook 'after-init-hook 'server-start t))
 
 ;; Use projectile to easily switch between projects
-(projectile-global-mode)
+(use-package projectile
+  :demand t
+  :config
+  (use-package helm-projectile
+    :bind (("C-h p"   . helm-projectile)))
+  (projectile-global-mode))
 
 ;;; Toggle features easily with: C-x t <key>
 ;;; From http://endlessparentheses.com/the-toggle-map-and-wizardry.html
@@ -103,16 +117,18 @@ If current selection is a file, `magit-status' from its directory."
            ("q"  . toggle-debug-on-quit)
            ("" . toggle-frame-fullscreen))
 
-;;; My very own prefix key, backgrounding emacs makes no sense
-(bind-keys :prefix-map alf/ctrl-z-map
-           :prefix "C-z"
-           )
-
 (use-package ace-jump-mode
   :defer t
   :init
   (autoload 'ace-jump-mode "ace-jump-mode" nil t)
   (bind-key "C-;" 'ace-jump-mode))
+
+(use-package csharp-mode
+  :mode "\\.rb\\'")
+
+(use-package paredit
+  :init
+  (add-hook 'emacs-lisp-mode-hook #'paredit-mode))
 
 ;; Load my org-mode settings, this is pretty big so I've moved it to a different file.
 (load "~/.emacs.d/init-org.el")

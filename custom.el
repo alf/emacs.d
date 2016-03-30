@@ -14,7 +14,7 @@
      ("melpa" . "http://melpa.org/packages/"))))
  '(package-selected-packages
    (quote
-    (use-package ob-restclient paredit helm-projectile helm-descbinds helm-ls-git projectile magit helm)))
+    (use-package)))
  '(use-package-always-ensure t)
  '(visible-bell t))
 

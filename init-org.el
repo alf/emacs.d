@@ -6,6 +6,11 @@
 
 ;;; Code:
 
+(require 'org)
+
+(use-package ob-restclient
+  :commands org-babel-execute:restclient)
+
 ;; Standard keybindings
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
@@ -13,10 +18,12 @@
 (global-set-key (kbd "C-c b") 'org-iswitchb)
 
 ;; Make sure my keymaps are available
-(define-key alf/ctl-z-map "p" 'alf/org-punch-dwim)
-(define-key alf/ctl-z-map "j" 'org-clock-goto)
-(define-key alf/ctl-z-map (kbd  "SPC") 'bh/clock-in-last-task)
-(require 'org)
+;;; My very own prefix key, backgrounding emacs makes no sense
+(bind-keys :prefix-map alf/ctrl-z-map
+           :prefix "C-z"
+	   ("p"     . alf/org-punch-dwim)
+	   ("j"     . org-clock-goto)
+	   ([? ] . bh/clock-in-last-task))
 
 ;; Setup org-mobile
 (setq org-mobile-inbox-for-pull "~/Dropbox/Org/refile.org")
