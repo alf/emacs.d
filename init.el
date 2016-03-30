@@ -77,7 +77,8 @@ If current selection is a file, `magit-status' from its directory."
 
   :config
   (require 'helm-config)
-  (require 'helm-files))
+  (require 'helm-files)
+  (helm-mode))
 
 ;; Use helm to browse histories
 (define-key shell-mode-map (kbd "C-c C-l") 'helm-comint-input-ring)
@@ -88,24 +89,25 @@ If current selection is a file, `magit-status' from its directory."
 
 ;(add-hook 'helm-goto-line-before-hook 'helm-save-current-pos-to-mark-ring)
 
-(helm-mode)
-
 ;; Use projectile to easily switch between projects
 (projectile-global-mode)
 
 ;;; Toggle features easily with: C-x t <key>
 ;;; From http://endlessparentheses.com/the-toggle-map-and-wizardry.html
-(define-prefix-command 'alf/toggle-map)
-(define-key ctl-x-map "t" 'alf/toggle-map)
-(define-key alf/toggle-map "c" 'column-number-mode)
-(define-key alf/toggle-map "e" 'toggle-debug-on-error)
-(define-key alf/toggle-map "f" 'auto-fill-mode)
-(define-key alf/toggle-map "t" 'toggle-truncate-lines)
-(define-key alf/toggle-map "q" 'toggle-debug-on-quit)
+(bind-keys :prefix-map alf/toggle-map
+           :prefix "C-x t"
+           ("c"  . column-number-mode)
+           ("e"  . toggle-debug-on-error)
+           ("f"  . auto-fill-mode)
+           ("t"  . toggle-truncate-lines)
+           ("q"  . toggle-debug-on-quit)
+           ("" . toggle-frame-fullscreen))
 
-;;; My very own prefix key
-(define-prefix-command 'alf/ctl-z-map)
-(define-key global-map "\C-z" 'alf/ctl-z-map)
+;;; My very own prefix key, backgrounding emacs makes no sense
+(bind-keys :prefix-map alf/ctrl-z-map
+           :prefix "C-z"
+           )
+
 
 ;; Load my org-mode settings, this is pretty big so I've moved it to a different file.
 (load "~/.emacs.d/init-org.el")

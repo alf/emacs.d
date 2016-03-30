@@ -3,6 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-file "~/.emacs.d/custom.el")
  '(enable-recursive-minibuffers t)
  '(helm-autoresize-mode t)
  '(helm-ff-file-name-history-use-recentf t)
@@ -14,7 +15,8 @@
  '(package-selected-packages
    (quote
     (use-package ob-restclient paredit helm-projectile helm-descbinds helm-ls-git projectile magit helm)))
- '(use-package-always-ensure t))
+ '(use-package-always-ensure t)
+ '(visible-bell t))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -22,4 +24,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
