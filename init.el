@@ -93,6 +93,10 @@ If current selection is a file, `magit-status' from its directory."
   :config
   (add-hook 'eshell-first-time-mode-hook 'eshell-initialize))
 
+(use-package ggtags
+  :config
+  (add-hook 'csharp-mode-hook 'ggtags-mode))
+
 (use-package server
   :if window-system
   :init
@@ -124,6 +128,7 @@ If current selection is a file, `magit-status' from its directory."
   (bind-key "C-;" 'ace-jump-mode))
 
 (use-package csharp-mode
+  :commands csharp-mode-hook
   :mode "\\.rb\\'")
 
 (use-package paredit
